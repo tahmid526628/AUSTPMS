@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -90,6 +93,20 @@ public class ConnectDatabase {
     public String getDepartment() {
         return department;
     }
+    
+    
+    
+    public String getGuestName() {
+        return guestName;
+    }
+
+    public String getGuestSlotNum() {
+        return guestSlotNum;
+    }
+
+    public String getGuestMobile() {
+        return guestMobile;
+    }
 
     /**
      * @return the photo
@@ -119,6 +136,15 @@ public class ConnectDatabase {
     private String parkingStatus;  
     private String slotNumber;
     /***************************variables for parking**************************/
+    
+    /* =========================Guest parking========================== */
+    private String guestName;
+    private String guestSlotNum;
+    private String guestMobile;
+    
+    
+    
+    
     public void ConnectDB(){
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -129,6 +155,14 @@ public class ConnectDatabase {
             e.printStackTrace();
         }
         
+    }
+    
+    public void CloseDB(){
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void retrieveDataNewVehicle(String id){
@@ -246,6 +280,68 @@ public class ConnectDatabase {
     }
     
     
+    /* =====================Guest parking===============================*/
+    public boolean retrieveGuestsParkingToStart(String slotNum){
+        boolean fieldState = false;
+        try{
+            Statement statement3 = connection.createStatement();
+            ResultSet resultSet = statement3.executeQuery("select * from GuestParking where SlotNumber = '" + slotNum + "' and ParkingStatus = 'Yes'");
+            while(resultSet.next()){
+                fieldState = true;
+            }  
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return fieldState;
+    }
+    
+    
+    public void storeGuestParkingData(String parkingDate, String entryTime, String name, String mobile, String vehicleNum, String parkingStatus, String slotNumber){
+        try{
+            String query = "insert into GuestParking(ParkingDate, Name, Mobile, VehicleNumber, ParkingStatus, EntryTime, SlotNumber) "
+                    + "values(?,?,?,?,?,?,?)";
+            PreparedStatement pst = connection.prepareStatement(query);
+            
+            pst.setString(1, parkingDate);
+            pst.setString(2, name);
+            pst.setString(3, mobile);
+            pst.setString(4, vehicleNum);
+            pst.setString(5, parkingStatus);
+            pst.setString(6, entryTime);
+            pst.setString(7, slotNumber);
+            
+            pst.executeUpdate();
+            pst.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateGuestParkingData(String status, String vehicleNumber, String exitTime){
+        try{
+            String query = "update GuestParking set ParkingStatus = '" + status + "', ExitTime = '" + exitTime + "' where VehicleNumber = '" + vehicleNumber + "'";
+            PreparedStatement pst = connection.prepareStatement(query);
+            
+            pst.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void retrieveGuestParkingData(String vehicleNumber){
+        try{
+            Statement statement3 = connection.createStatement();
+            ResultSet resultSet = statement3.executeQuery("select * from GuestParking where VehicleNumber = '" + vehicleNumber + "' and ParkingStatus = 'Yes'");
+            while(resultSet.next()){
+                guestName = resultSet.getString("Name");
+                guestMobile = resultSet.getString("Mobile");
+                guestSlotNum = resultSet.getString("SlotNumber");
+            }  
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
     
     
     
@@ -259,115 +355,115 @@ public class ConnectDatabase {
     
     
     // start- 17 March,2020
-    public void storePersonData(String id, String firstName, String lastName, String mobileNum, String profession, String dept, byte[] pic){
-        try{
-            String query = "insert into Person(ID, FirstName, LastName, Mobile, Profession, Department, Photo) values(?,?,?,?,?,?,?)";
-            PreparedStatement pst = connection.prepareStatement(query);
-            
-            pst.setString(1, id);
-            pst.setString(2, firstName);
-            pst.setString(3, lastName);
-            pst.setString(4, mobileNum);
-            pst.setString(5, profession);
-            pst.setString(6, dept);
-            pst.setBytes(7, pic);
+//    public void storePersonData(String id, String firstName, String lastName, String mobileNum, String profession, String dept, byte[] pic){
+//        try{
+//            String query = "insert into Person(ID, FirstName, LastName, Mobile, Profession, Department, Photo) values(?,?,?,?,?,?,?)";
+//            PreparedStatement pst = connection.prepareStatement(query);
 //            
-            pst.executeUpdate();
-            pst.close();
-            
-            JOptionPane.showMessageDialog(null, "Successfully stored. Thank you");
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    //end- 17 March,2020
-    
-    public void storeVehicleData(String vehicleSerial, String vehicleNum, String vehicleType, String vehicleModel, 
-            String vehicleColor, String regDate, String expiryDate, String id){
-        try{
-            String query = "insert into Vehicle(VehicleNumber, VehicleType, VehicleModel, VehicleColor, RegDate, ExpiryDate, ID) values(?,?,?,?,?,?,?)";
-            PreparedStatement pst = connection.prepareStatement(query);
-            
-            String vehicleNumberNew = vehicleSerial + vehicleNum;
-            System.out.println(vehicleNumberNew);
-   
-            pst.setString(1, vehicleNumberNew);
-            pst.setString(2, vehicleType);
-            pst.setString(3, vehicleModel);
-            pst.setString(4, vehicleColor);  
-            pst.setString(5, regDate);
-            pst.setString(6, expiryDate);
-            pst.setString(7, id);
-            
-            pst.executeUpdate();
-            pst.close();
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-    
-    public String forGeneratingTeacherID(){
-        String count = null;
-        //System.out.println(profession);
-        try{
-            statement1 = connection.createStatement();
-            
-            ResultSet resultSet = statement1.executeQuery("select count(*) as count from Person inner join Vehicle on Person.ID=Vehicle.ID group by Profession having Profession = 'Teacher'");
-            while(resultSet.next()){
-            count = resultSet.getString("count");
-            System.out.println(count);
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
-        return String.valueOf(Integer.parseInt(count) + 1);
-    }
-    
-    public String forGeneratingStaffID(){
-        String count = null;
-        //System.out.println(profession);
-        try{
-            statement1 = connection.createStatement();
-            
-            ResultSet resultSet = statement1.executeQuery("select count(*) as count from Person inner join Vehicle on Person.ID=Vehicle.ID group by Profession having Profession = 'Staff'");
-            while(resultSet.next()){
-            count = resultSet.getString("count");
-            System.out.println(count);
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
-        return String.valueOf(Integer.parseInt(count) + 1);
-    }
-    
-    public void storeSchedule(String id, String sundayStart, String sundayEnd, String mondayStart, String mondayEnd, String tuesdayStart,
-            String tuesdayEnd, String wedStart, String wedEnd, String thursdayStart, String thursdayEnd){
-        try{
-            String query = "insert into Schedule(ID, SundayStart, SundayEnd, MondayStart, MondayEnd, TuesdayStart, TuesdayEnd, WednesdayStart,"
-                    + "WednesdayEnd, ThursdayStart, ThursdayEnd) values(?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement pst = connection.prepareStatement(query);
-            
-            pst.setString(1, id);
-            pst.setString(2, sundayStart);
-            pst.setString(3, sundayEnd);
-            pst.setString(4, mondayStart);
-            pst.setString(5, mondayEnd);
-            pst.setString(6, tuesdayStart);
-            pst.setString(7, tuesdayEnd);
-            pst.setString(8, wedStart);
-            pst.setString(9, wedEnd);
-            pst.setString(10, thursdayStart);
-            pst.setString(11, thursdayEnd);
-            
-            pst.executeUpdate();
-            pst.close();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+//            pst.setString(1, id);
+//            pst.setString(2, firstName);
+//            pst.setString(3, lastName);
+//            pst.setString(4, mobileNum);
+//            pst.setString(5, profession);
+//            pst.setString(6, dept);
+//            pst.setBytes(7, pic);
+////            
+//            pst.executeUpdate();
+//            pst.close();
+//            
+//            JOptionPane.showMessageDialog(null, "Successfully stored. Thank you");
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    //end- 17 March,2020
+//    
+//    public void storeVehicleData(String vehicleSerial, String vehicleNum, String vehicleType, String vehicleModel, 
+//            String vehicleColor, String regDate, String expiryDate, String id){
+//        try{
+//            String query = "insert into Vehicle(VehicleNumber, VehicleType, VehicleModel, VehicleColor, RegDate, ExpiryDate, ID) values(?,?,?,?,?,?,?)";
+//            PreparedStatement pst = connection.prepareStatement(query);
+//            
+//            String vehicleNumberNew = vehicleSerial + vehicleNum;
+//            System.out.println(vehicleNumberNew);
+//   
+//            pst.setString(1, vehicleNumberNew);
+//            pst.setString(2, vehicleType);
+//            pst.setString(3, vehicleModel);
+//            pst.setString(4, vehicleColor);  
+//            pst.setString(5, regDate);
+//            pst.setString(6, expiryDate);
+//            pst.setString(7, id);
+//            
+//            pst.executeUpdate();
+//            pst.close();
+//            
+//        }catch(Exception e){
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//    }
+//    
+//    public String forGeneratingTeacherID(){
+//        String count = null;
+//        //System.out.println(profession);
+//        try{
+//            statement1 = connection.createStatement();
+//            
+//            ResultSet resultSet = statement1.executeQuery("select count(*) as count from Person inner join Vehicle on Person.ID=Vehicle.ID group by Profession having Profession = 'Teacher'");
+//            while(resultSet.next()){
+//            count = resultSet.getString("count");
+//            System.out.println(count);
+//            }
+//        }catch(Exception e){
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//        
+//        return String.valueOf(Integer.parseInt(count) + 1);
+//    }
+//    
+//    public String forGeneratingStaffID(){
+//        String count = null;
+//        //System.out.println(profession);
+//        try{
+//            statement1 = connection.createStatement();
+//            
+//            ResultSet resultSet = statement1.executeQuery("select count(*) as count from Person inner join Vehicle on Person.ID=Vehicle.ID group by Profession having Profession = 'Staff'");
+//            while(resultSet.next()){
+//            count = resultSet.getString("count");
+//            System.out.println(count);
+//            }
+//        }catch(Exception e){
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//        
+//        return String.valueOf(Integer.parseInt(count) + 1);
+//    }
+//    
+//    public void storeSchedule(String id, String sundayStart, String sundayEnd, String mondayStart, String mondayEnd, String tuesdayStart,
+//            String tuesdayEnd, String wedStart, String wedEnd, String thursdayStart, String thursdayEnd){
+//        try{
+//            String query = "insert into Schedule(ID, SundayStart, SundayEnd, MondayStart, MondayEnd, TuesdayStart, TuesdayEnd, WednesdayStart,"
+//                    + "WednesdayEnd, ThursdayStart, ThursdayEnd) values(?,?,?,?,?,?,?,?,?,?,?)";
+//            PreparedStatement pst = connection.prepareStatement(query);
+//            
+//            pst.setString(1, id);
+//            pst.setString(2, sundayStart);
+//            pst.setString(3, sundayEnd);
+//            pst.setString(4, mondayStart);
+//            pst.setString(5, mondayEnd);
+//            pst.setString(6, tuesdayStart);
+//            pst.setString(7, tuesdayEnd);
+//            pst.setString(8, wedStart);
+//            pst.setString(9, wedEnd);
+//            pst.setString(10, thursdayStart);
+//            pst.setString(11, thursdayEnd);
+//            
+//            pst.executeUpdate();
+//            pst.close();
+//        }catch(Exception e){
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//    }
 
    
 }

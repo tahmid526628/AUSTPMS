@@ -1000,18 +1000,18 @@ public class Register extends javax.swing.JFrame {
                 System.out.println("OK");
                 
                 /*******************work with schedule****************/
-                String sunStart = startHour1.getText() + ":" + startMin1.getText();
-                String sunEnd = endHour1.getText() + ":" + endMin1.getText();
-                String monStart = startHour2.getText() + ":" + startMin2.getText();
-                String monEnd = endHour2.getText() + ":" + endMin2.getText();
-                String tuesStart = startHour3.getText() + ":" + startMin3.getText();
-                String tuesEnd = endHour3.getText() + ":" + endMin3.getText();
-                String wedStart = startHour4.getText() + ":" + startMin4.getText();
-                String wedEnd = endHour4.getText() + ":" + endMin4.getText();
-                String thursStart = startHour5.getText() + ":" + startMin5.getText();
-                String thursEnd = endHour5.getText() + ":" + endMin5.getText();
-//
-                connectDatabase.storeSchedule(id, sunStart, sunEnd, monStart, monEnd, tuesStart, tuesEnd, wedStart, wedEnd, thursStart, thursEnd);
+//                String sunStart = startHour1.getText() + ":" + startMin1.getText();
+//                String sunEnd = endHour1.getText() + ":" + endMin1.getText();
+//                String monStart = startHour2.getText() + ":" + startMin2.getText();
+//                String monEnd = endHour2.getText() + ":" + endMin2.getText();
+//                String tuesStart = startHour3.getText() + ":" + startMin3.getText();
+//                String tuesEnd = endHour3.getText() + ":" + endMin3.getText();
+//                String wedStart = startHour4.getText() + ":" + startMin4.getText();
+//                String wedEnd = endHour4.getText() + ":" + endMin4.getText();
+//                String thursStart = startHour5.getText() + ":" + startMin5.getText();
+//                String thursEnd = endHour5.getText() + ":" + endMin5.getText();
+////
+//                connectDatabase.storeSchedule(id, sunStart, sunEnd, monStart, monEnd, tuesStart, tuesEnd, wedStart, wedEnd, thursStart, thursEnd);
                 
                 //generating barcode using person's ID
                 BarcodeGenerate barcode = new BarcodeGenerate();
@@ -1406,6 +1406,7 @@ public class Register extends javax.swing.JFrame {
             connectDatabase.ConnectDB();
             if(professionCombo.getSelectedItem().equals("Teacher")){
                 tempId = connectDatabase.forGeneratingTeacherID();
+                System.out.println(tempId);
                 if(Integer.parseInt(tempId) < 10){
                     tempId = "00" + tempId;
                 }

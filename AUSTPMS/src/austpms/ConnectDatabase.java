@@ -296,8 +296,11 @@ public class ConnectDatabase {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
-        
+        if(count == null){
+            count = "0";
+        }        
         return String.valueOf(Integer.parseInt(count) + 1);
+//        return "1";
     }
     
     public String forGeneratingStaffID(){
@@ -314,7 +317,9 @@ public class ConnectDatabase {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
-        
+        if(count == null){
+            count = "0";
+        } 
         return String.valueOf(Integer.parseInt(count) + 1);
     }
     

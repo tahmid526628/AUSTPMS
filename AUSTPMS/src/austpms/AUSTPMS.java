@@ -5,6 +5,10 @@
  */
 package austpms;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Tahmid
@@ -16,10 +20,7 @@ public class AUSTPMS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-//        ConnectDatabase db = new ConnectDatabase();
-//        db.ConnectDB();
-//        db.forGeneratingID("teacher");
-        //System.out.println(id);
+        System.out.println(new Color(128, 0, 0));
         
     }
     

@@ -66,17 +66,22 @@ public class MainPage extends javax.swing.JFrame {
     private static final String VOICENAME = "kevin16";
     
     ArrayList<JTextField> textFieldAr = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForStudents = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForStuffs = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForGuests = new ArrayList<JTextField>();
+
     
     public MainPage() {
         initComponents();
         screenShowing(); // screen resizing and screen showing in midle of the screen
         
-        mainButtonPanel.setBackground(Color.red);
-        freeSlotLabel.setText("Free Slot: " + String.valueOf(10)); // a trial to see free slots available
+        mainButtonPanel.setBackground(Color.red); //main menu button
+//        freeSlotLabel.setText("Free Slot: " + String.valueOf(10)); // a trial to see free slots available
         
         addToArrayList(); // adding text fields(represent slots) to Array List
         
         setTextFieldToStart(); // set instance value in text fields(retrieving info from database)
+        setTextFieldToStartForGuests(); // set instance value for guests
         
         guestPanel.setVisible(false);
         
@@ -120,11 +125,14 @@ public class MainPage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField112 = new javax.swing.JTextField();
-        jTextField113 = new javax.swing.JTextField();
+        guestMobileField = new javax.swing.JTextField();
+        guestNameField = new javax.swing.JTextField();
+        guestVehicleNumField = new javax.swing.JTextField();
         guestSubmit = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        guestVehicleNumExitField = new javax.swing.JTextField();
+        guestExitButton = new javax.swing.JButton();
         dashboardPanel = new javax.swing.JPanel();
         dashboardScroll1 = new javax.swing.JScrollPane();
         basement1Panel = new javax.swing.JPanel();
@@ -459,51 +467,119 @@ public class MainPage extends javax.swing.JFrame {
 
         guestPanel.setBackground(new java.awt.Color(0, 51, 51));
         guestPanel.setForeground(new java.awt.Color(0, 51, 51));
-        guestPanel.setLayout(null);
 
         jLabel2.setBackground(new java.awt.Color(0, 51, 51));
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Mobile:");
-        guestPanel.add(jLabel2);
-        jLabel2.setBounds(10, 450, 57, 22);
 
         jLabel4.setBackground(new java.awt.Color(0, 51, 51));
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Name:");
-        guestPanel.add(jLabel4);
-        jLabel4.setBounds(10, 370, 51, 22);
 
         jLabel5.setBackground(new java.awt.Color(0, 51, 51));
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Vehicle Number:");
-        guestPanel.add(jLabel5);
-        jLabel5.setBounds(10, 410, 129, 22);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        guestPanel.add(jTextField1);
-        jTextField1.setBounds(80, 450, 230, 28);
+        guestMobileField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTextField112.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        guestPanel.add(jTextField112);
-        jTextField112.setBounds(70, 370, 240, 28);
+        guestNameField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTextField113.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        guestPanel.add(jTextField113);
-        jTextField113.setBounds(150, 410, 160, 28);
+        guestVehicleNumField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         guestSubmit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         guestSubmit.setText("Submit");
-        guestPanel.add(guestSubmit);
-        guestSubmit.setBounds(163, 520, 110, 31);
+        guestSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guestSubmitActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 255, 204));
         jLabel6.setText("Guest Login");
-        guestPanel.add(jLabel6);
-        jLabel6.setBounds(50, 20, 250, 80);
+
+        jLabel7.setBackground(new java.awt.Color(0, 51, 51));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Vehicle Number:");
+
+        guestVehicleNumExitField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        guestExitButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        guestExitButton.setText("Exit");
+        guestExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guestExitButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout guestPanelLayout = new javax.swing.GroupLayout(guestPanel);
+        guestPanel.setLayout(guestPanelLayout);
+        guestPanelLayout.setHorizontalGroup(
+            guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(guestPanelLayout.createSequentialGroup()
+                .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(guestPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(guestPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel4)
+                        .addGap(9, 9, 9)
+                        .addComponent(guestNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(guestPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel5)
+                        .addGap(11, 11, 11)
+                        .addComponent(guestVehicleNumField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(guestPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(guestExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(guestPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(guestVehicleNumExitField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(guestPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(guestSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(guestPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(13, 13, 13)
+                                .addComponent(guestMobileField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(33, 33, 33))
+        );
+        guestPanelLayout.setVerticalGroup(
+            guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(guestPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(guestNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(guestVehicleNumField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(guestMobileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addComponent(guestSubmit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(guestVehicleNumExitField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(guestExitButton)
+                .addGap(92, 92, 92))
+        );
 
         mainPanel.add(guestPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 350, 600));
 
@@ -640,56 +716,53 @@ public class MainPage extends javax.swing.JFrame {
         jTextField12.setBackground(new java.awt.Color(0, 128, 0));
         jTextField12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTextField12.setText("B1C11");
-        jTextField12.setEnabled(false);
         basement1Panel.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 54, 30));
 
         jTextField13.setEditable(false);
         jTextField13.setBackground(new java.awt.Color(0, 128, 0));
         jTextField13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTextField13.setText("B1C12");
-        jTextField13.setEnabled(false);
         basement1Panel.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 54, 30));
 
         jTextField14.setEditable(false);
         jTextField14.setBackground(new java.awt.Color(0, 128, 0));
         jTextField14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTextField14.setText("B1C13");
-        jTextField14.setEnabled(false);
         basement1Panel.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 54, 30));
 
         jTextField15.setEditable(false);
         jTextField15.setBackground(new java.awt.Color(0, 128, 0));
         jTextField15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTextField15.setText("B1C14");
-        jTextField15.setEnabled(false);
         basement1Panel.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 54, 30));
 
         jTextField16.setEditable(false);
         jTextField16.setBackground(new java.awt.Color(0, 128, 0));
         jTextField16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTextField16.setText("B1C15");
-        jTextField16.setEnabled(false);
         basement1Panel.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 54, 30));
 
         jTextField17.setEditable(false);
         jTextField17.setBackground(new java.awt.Color(0, 128, 0));
         jTextField17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField17.setText("B1C1");
-        jTextField17.setEnabled(false);
+        jTextField17.setText("B1C16");
+        jTextField17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField17ActionPerformed(evt);
+            }
+        });
         basement1Panel.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 54, 30));
 
         jTextField18.setEditable(false);
         jTextField18.setBackground(new java.awt.Color(0, 128, 0));
         jTextField18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField18.setText("B1C1");
-        jTextField18.setEnabled(false);
+        jTextField18.setText("B1C17");
         basement1Panel.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 54, 30));
 
         jTextField19.setEditable(false);
         jTextField19.setBackground(new java.awt.Color(0, 128, 0));
         jTextField19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField19.setText("B1C1");
-        jTextField19.setEnabled(false);
+        jTextField19.setText("B1C18");
         basement1Panel.add(jTextField19, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 54, 30));
 
         jTextField20.setEditable(false);
@@ -919,36 +992,36 @@ public class MainPage extends javax.swing.JFrame {
         jTextField52.setEditable(false);
         jTextField52.setBackground(new java.awt.Color(0, 128, 0));
         jTextField52.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField52.setText("B1C1");
-        jTextField52.setEnabled(false);
+        jTextField52.setText("B1G1C51");
+        jTextField52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField52ActionPerformed(evt);
+            }
+        });
         basement1Panel.add(jTextField52, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 54, 30));
 
         jTextField53.setEditable(false);
         jTextField53.setBackground(new java.awt.Color(0, 128, 0));
         jTextField53.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField53.setText("B1C1");
-        jTextField53.setEnabled(false);
+        jTextField53.setText("B1G1C52");
         basement1Panel.add(jTextField53, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 54, 30));
 
         jTextField54.setEditable(false);
         jTextField54.setBackground(new java.awt.Color(0, 128, 0));
         jTextField54.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField54.setText("B1C1");
-        jTextField54.setEnabled(false);
+        jTextField54.setText("B1G1C53");
         basement1Panel.add(jTextField54, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, 54, 30));
 
         jTextField55.setEditable(false);
         jTextField55.setBackground(new java.awt.Color(0, 128, 0));
         jTextField55.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField55.setText("B1C1");
-        jTextField55.setEnabled(false);
+        jTextField55.setText("B1G1C54");
         basement1Panel.add(jTextField55, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 560, 54, 30));
 
         jTextField56.setEditable(false);
         jTextField56.setBackground(new java.awt.Color(0, 128, 0));
         jTextField56.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField56.setText("B1C1");
-        jTextField56.setEnabled(false);
+        jTextField56.setText("B1G1C55");
         basement1Panel.add(jTextField56, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 54, 30));
 
         dashboardScroll1.setViewportView(basement1Panel);
@@ -1368,6 +1441,7 @@ public class MainPage extends javax.swing.JFrame {
 
     
     private void addToArrayList(){
+        // array allocation for teachers slot
         textFieldAr.add(jTextField2);
         textFieldAr.add(jTextField3);
         textFieldAr.add(jTextField4);
@@ -1379,8 +1453,27 @@ public class MainPage extends javax.swing.JFrame {
         textFieldAr.add(jTextField10);
         textFieldAr.add(jTextField11);
         
+        // array allocation for students slot
+        textFieldArForStudents.add(jTextField12);
+        textFieldArForStudents.add(jTextField13);
+        textFieldArForStudents.add(jTextField14);
+        textFieldArForStudents.add(jTextField15);
+        textFieldArForStudents.add(jTextField16);
+        
+        // array allocation for stuffs
+        textFieldArForStuffs.add(jTextField17);
+        textFieldArForStuffs.add(jTextField18);
+        textFieldArForStuffs.add(jTextField19);
+        
+        // array allocation for guests
+        textFieldArForGuests.add(jTextField52);
+        textFieldArForGuests.add(jTextField53);
+        textFieldArForGuests.add(jTextField54);
+        textFieldArForGuests.add(jTextField55);
+        textFieldArForGuests.add(jTextField56);
     }
     
+    // proti bar input deyar por value reset korar jonno
     private void setDefaultValue(){
         imageLabel.setIcon(null);
         imageLabel.setText("Image");
@@ -1403,6 +1496,7 @@ public class MainPage extends javax.swing.JFrame {
         tempTextField1 = null;
     }
     
+    // software first open korar por database onujaayi slot fill korar jonno nicher function 2
     private void setTextFieldInstance(JTextField textField){
         ConnectDatabase connectDatabase = new ConnectDatabase();
         connectDatabase.ConnectDB();
@@ -1410,18 +1504,62 @@ public class MainPage extends javax.swing.JFrame {
         if(fieldState){
             textField.setBackground(Color.red);
             parkedSlotCount += 1;
-            freeSlotLabel.setText("Free Slot: "+String.valueOf(10 - parkedSlotCount));
+//            freeSlotLabel.setText("Free Slot: "+String.valueOf(10 - parkedSlotCount));
         }
         else
             textField.setBackground(new Color(0, 128, 0));
+        
+        
+        // closing the database
+        connectDatabase.CloseDB();
     }
     
     private void setTextFieldToStart(){
+        // set teachers slots
         for(int count=0; count<textFieldAr.size(); count++){
-            setTextFieldInstance(textFieldAr.get(count));
+            setTextFieldInstance(textFieldAr.get(count)); // checking the object in array list
+//            System.out.println(textFieldAr.get(count));
+        }
+        
+        // set students slots
+        for(int count=0; count<textFieldArForStudents.size(); count++){
+            setTextFieldInstance(textFieldArForStudents.get(count));
+        }
+        
+        // set stuffs slots
+        for(int count=0; count<textFieldArForStuffs.size(); count++){
+            setTextFieldInstance(textFieldArForStuffs.get(count));
         }
     }
     
+    // set field(slots) initially for guests
+    /* ===== 10 Sept, 2020=====*/
+
+    private void setTextFieldInstanceForGuests(JTextField textField){
+        ConnectDatabase connectDatabase = new ConnectDatabase();
+        connectDatabase.ConnectDB();
+        boolean fieldState = connectDatabase.retrieveGuestsParkingToStart(textField.getText()); // field state mean red or green(actually parked or not)
+        if(fieldState){
+            textField.setBackground(Color.red);
+        }
+        else
+            textField.setBackground(new Color(0, 128, 0));
+        
+        
+        // closing the database
+        connectDatabase.CloseDB();
+    }
+    
+    private void setTextFieldToStartForGuests(){
+        // set guests slots
+        for(int count=0; count<textFieldArForGuests.size(); count++){
+            setTextFieldInstanceForGuests(textFieldArForGuests.get(count));
+        }
+    }
+    /* ===== 10 Sept, 2020=====*/
+
+    
+    // parking process:::entry hole slot red==exit hole slot green(automatic checking process)
     private void textFieldAction(JTextField textField){
         ConnectDatabase connectDatabase = new ConnectDatabase();
         connectDatabase.ConnectDB();
@@ -1517,12 +1655,14 @@ public class MainPage extends javax.swing.JFrame {
             profileActiveState = false;
         }
         else{
-
+            //getting the id
             id = searchBar.getText();
             
+            //connecting to database
             ConnectDatabase connectDatabase = new ConnectDatabase();
             connectDatabase.ConnectDB();
             
+            // retrieve data using the ID
             connectDatabase.retrieveDataNewVehicle(id);
             id = connectDatabase.getId();
             name = connectDatabase.getFirstName() + " " + connectDatabase.getLastName();
@@ -1530,12 +1670,14 @@ public class MainPage extends javax.swing.JFrame {
             vehicleType = connectDatabase.getVehicleType();
             vehicleNumber = connectDatabase.getVehicleNumber();
             
+            // if not then set the default value, else proceed
             if(connectDatabase.getId() == null){
                 JOptionPane.showMessageDialog(null, "Data not found\nPlease check your ID");
                 profileActiveState = false;
                 setDefaultValue();
             }else{
             //profession = connectDatabase.getProfession();
+            // setting the data to the profile showing panel
             nameLabel.setText(name);
             idLabel.setText("ID: " + id);
             professionLabel.setText("Profession: " + profession);
@@ -1549,26 +1691,28 @@ public class MainPage extends javax.swing.JFrame {
             /************checking status***************/
             connectDatabase.retrieveParkingData(id);
             
+            // checking the status is Yes or No for parking
             statusLabel.setText("Status: " + connectDatabase.getParkingStatus());
             if(connectDatabase.getParkingStatus().equals("Yes")){
                 slotNum = connectDatabase.getSlotNumber();
                 slotNumLabel.setText("Parking Slot Number: " + slotNum);
                 confirmButton.setEnabled(false);
                 exitButton.setEnabled(true);
-                isConfirm = false; 
+                isConfirm = false; // parking status is Yes, that is, she parking e silo ekhon ber hobe
                 isExit = true;
             }
             else if(connectDatabase.getParkingStatus().equals("No")){
                 slotNumLabel.setText("Parking Slot Number: ");
                 confirmButton.setEnabled(true);
                 exitButton.setEnabled(false);
-                isConfirm = true;
+                isConfirm = true; // parking status No, that is, she parking e entry nibe. r tai isConfirm=true, isExit=false
                 isExit = false;
             }
                 
             
             
             /******************set image(covert byte array to ImageIcon*************/
+            //showing the image to the panel
             try{
                 byte[] pic = connectDatabase.getPhoto();        
                 ImageIcon img = new ImageIcon(pic);
@@ -1582,14 +1726,32 @@ public class MainPage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Image not found");
             }
             
-            profileActiveState = true;
+            profileActiveState = true;  // eta true maane ekhon profile panel ti active r tai ekhon tar parking er kaaj shuru kora jete paare
             }
             
-            /******************edited 30 march*************/
-            for(int count=0; count<textFieldAr.size(); count++){
-                textFieldAction(textFieldAr.get(count));
-                if(tempTextField != null)
-                    break;
+            /******************edited 30 March, 2020*************/
+            // checking and setting the slot in Array list of teachers through the booleans like isConfirm, isExit, etc.
+            //============= updated with condition check(10 Sept, 2020)===========
+            if(profession.equals("Teacher")){
+                for(int count=0; count<textFieldAr.size(); count++){
+                    textFieldAction(textFieldAr.get(count));
+                    if(tempTextField != null)
+                        break;
+                }
+            }
+            else if(profession.equals("Student")){
+                for(int count=0; count<textFieldArForStudents.size(); count++){
+                    textFieldAction(textFieldArForStudents.get(count));
+                    if(tempTextField != null)
+                        break;
+                }
+            }
+            else if(profession.equals("Stuff")){
+                for(int count=0; count<textFieldArForStuffs.size(); count++){
+                    textFieldAction(textFieldArForStuffs.get(count));
+                    if(tempTextField != null)
+                        break;
+                }
             }
             
             if(isConfirm && !isExit){
@@ -1666,7 +1828,7 @@ public class MainPage extends javax.swing.JFrame {
             
             /*a trial for counting free slots*/
             parkedSlotCount += 1;
-            freeSlotLabel.setText("Free Slot: "+String.valueOf(10 - parkedSlotCount));
+//            freeSlotLabel.setText("Free Slot: "+String.valueOf(10 - parkedSlotCount));
             }
             else if(isExit && !isConfirm){ 
                 // that is a person wants to leave
@@ -1716,7 +1878,7 @@ public class MainPage extends javax.swing.JFrame {
                 
                  /*a trial for counting free slots*/
                 parkedSlotCount -= 1;
-                freeSlotLabel.setText("Free Slot: "+String.valueOf(10 - parkedSlotCount));
+//                freeSlotLabel.setText("Free Slot: "+String.valueOf(10 - parkedSlotCount));
             }
             
         }
@@ -1827,6 +1989,115 @@ public class MainPage extends javax.swing.JFrame {
         textFieldAction(jTextField11);
     }//GEN-LAST:event_jTextField11MousePressed
 
+    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField17ActionPerformed
+
+    private void jTextField52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField52ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField52ActionPerformed
+
+    private void guestSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestSubmitActionPerformed
+        // guest parking confirmation and related code is here:
+        /* ===== 10 Sept, 2020=====*/
+        isConfirm = true;
+        isExit = false;
+        
+        // getting the values
+        String guestName = guestNameField.getText();
+        String guestMobile = guestMobileField.getText();
+        String guestVehicleNum = guestVehicleNumField.getText();
+        
+        // connecting to database 
+        ConnectDatabase db = new ConnectDatabase();
+        db.ConnectDB();
+        
+        // checking the guest is already here or not
+        db.retrieveGuestParkingData(guestVehicleNum);
+        if(db.getGuestName() != null){
+            JOptionPane.showMessageDialog(null, guestName + " is already here.");
+        }else{
+        
+        JTextField guestTempTextField = null;
+        // checking slot is empty or not
+        for(int i=0; i<textFieldArForGuests.size(); i++){
+            if(textFieldArForGuests.get(i).getBackground().equals(new Color(0, 128, 0))){
+                guestTempTextField = textFieldArForGuests.get(i);
+                break;
+            }
+        }
+        
+        String guestSlotNum = guestTempTextField.getText();
+                        
+        //current time
+        Time time = new Time();
+        
+        // storing the data in database
+        db.storeGuestParkingData(time.getCurrentDate(), time.getCurrentTime(), guestName, guestMobile, guestVehicleNum, "Yes", guestSlotNum);
+        System.out.println("Guest Successfully enterred");
+        
+        //color the slot
+        setTextFieldColor(guestTempTextField);
+        
+        setDefaultValue();
+        db.CloseDB();
+        }
+        /* ===== 10 Sept, 2020=====*/
+
+    }//GEN-LAST:event_guestSubmitActionPerformed
+
+    private void guestExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestExitButtonActionPerformed
+        // TODO add your handling code here:
+        /* ===== 10 Sept, 2020=====*/
+
+        isConfirm = false;
+        isExit = true;
+        
+        // getting vehicle number
+        String guestVehicleNum = guestVehicleNumExitField.getText();
+        String guestSlotNum = null;
+        String guestMobile = null;
+        String guestName = null;
+        // connecting to databse
+        ConnectDatabase db = new ConnectDatabase();
+        db.ConnectDB();
+        
+        // getting from database
+        db.retrieveGuestParkingData(guestVehicleNum);
+        guestName = db.getGuestName();
+        guestMobile = db.getGuestMobile();
+        guestSlotNum = db.getGuestSlotNum();
+        
+        // current time to exit
+        Time time = new Time();
+        
+        // give a confirmation msg
+        int choice = JOptionPane.showConfirmDialog(null, "Name: " + guestName + "\nMobile = " + guestMobile + "\nVehicle Number = " + guestVehicleNum);
+        System.out.println(choice);
+        if(choice == 0){ // that is yes
+        //check with the slot
+        // to color it green
+        JTextField guestTempTextField = null;
+        for(int i=0; i<textFieldArForGuests.size(); i++){
+            if(textFieldArForGuests.get(i).getBackground().equals(Color.red) && textFieldArForGuests.get(i).getText().equals(guestSlotNum)){
+                guestTempTextField = textFieldArForGuests.get(i);
+                break;
+            }
+        }
+        
+        //color the slot
+        setTextFieldColor(guestTempTextField);      
+                
+        // updating the database using vehicle number
+        db.updateGuestParkingData("No", guestVehicleNum, time.getCurrentTime());
+                
+        setDefaultValue();
+        db.CloseDB();
+        }
+        /* ===== 10 Sept, 2020=====*/
+
+    }//GEN-LAST:event_guestExitButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1893,10 +2164,15 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane dashboardScroll2;
     private javax.swing.JButton exitButton;
     private javax.swing.JLabel freeSlotLabel;
+    private javax.swing.JButton guestExitButton;
     private javax.swing.JLabel guestLoginButton;
     private javax.swing.JPanel guestLoginButtonPanel;
+    private javax.swing.JTextField guestMobileField;
+    private javax.swing.JTextField guestNameField;
     private javax.swing.JPanel guestPanel;
     private javax.swing.JButton guestSubmit;
+    private javax.swing.JTextField guestVehicleNumExitField;
+    private javax.swing.JTextField guestVehicleNumField;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPanel imagePanel;
@@ -1907,8 +2183,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField100;
     private javax.swing.JTextField jTextField101;
@@ -1923,8 +2199,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField110;
     private javax.swing.JTextField jTextField111;
-    private javax.swing.JTextField jTextField112;
-    private javax.swing.JTextField jTextField113;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
