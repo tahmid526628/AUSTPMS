@@ -20,7 +20,9 @@ public class AUSTPMS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println(new Color(128, 0, 0));
+        if("".equals("")){
+            System.out.println("same");
+        }
         
     }
     

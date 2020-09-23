@@ -21,6 +21,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ConnectDatabase {
+    /**
+     * @return the isPaymentOK
+     */
+    public boolean isIsPaymentOK() {
+        return isPaymentOK;
+    }
 
     /**
      * @return the extraStatement
@@ -107,6 +113,9 @@ public class ConnectDatabase {
     private String vehicleType;
     /******************************personal variable***************************/
     
+    // ===================== payment ====================
+    private boolean isPaymentOK = false; 
+    
     private Statement extraStatement;
     private ResultSet extraResultSet;
     public void ConnectDB(){
@@ -119,6 +128,14 @@ public class ConnectDatabase {
             e.printStackTrace();
         }
         
+    }
+    
+    public void CloseDB(){
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void retrieveDataNewVehicle(String id){
@@ -153,7 +170,17 @@ public class ConnectDatabase {
         try {
             extraStatement = connection.createStatement();
             extraResultSet = extraStatement.executeQuery("select P2.ParkingDate, P1.Profession, P1.FirstName +' '+ P1.LastName as Name, P1.ID, P1.Mobile,P2.VehicleNumber, P2.ParkingStatus, "
-                    + "P2.SlotNumber from Person P1 inner join Parking P2 on P1.ID = P2.ID where P2.ParkingDate='" +date+ "'");
+                    + "P2.SlotNumber, P2.ParkingTime, P2.ExitTime from Person P1 inner join Parking P2 on P1.ID = P2.ID where P2.ParkingDate='" +date+ "'");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void retrieveGuestParkingData(){
+        try {
+            extraStatement = connection.createStatement();
+            extraResultSet = extraStatement.executeQuery("select * from GuestParking");
             
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -233,6 +260,36 @@ public class ConnectDatabase {
         }
     }
     
+    public void retrievePaymentInfo(String transactionId){
+        try{
+            this.isPaymentOK = false;
+            statement1 = connection.createStatement();
+            ResultSet rs = statement1.executeQuery("select * from Payment where TransactionId='" + transactionId + "'");
+            while(rs.next()){
+                this.isPaymentOK = true;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public String retrieveSemesterInfo(String status){
+        String endDate = "";
+        try{
+            
+            statement1 = connection.createStatement();
+            ResultSet rs = statement1.executeQuery("select * from Semester where Status='" + status + "'");
+            while(rs.next()){
+                endDate = rs.getString("EndDate");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e + ": I'm from retrieving semester info");
+        }
+        return endDate;
+    }
+    
+    // store methods=========================
+    
     // start- 17 March,2020
     public void storePersonData(String id, String firstName, String lastName, String mobileNum, String profession, String dept, byte[] pic){
         try{
@@ -250,7 +307,6 @@ public class ConnectDatabase {
             pst.executeUpdate();
             pst.close();
             
-            JOptionPane.showMessageDialog(null, "Successfully stored. Thank you");
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -263,7 +319,8 @@ public class ConnectDatabase {
             String query = "insert into Vehicle(VehicleNumber, VehicleType, VehicleModel, VehicleColor, RegDate, ExpiryDate, ID) values(?,?,?,?,?,?,?)";
             PreparedStatement pst = connection.prepareStatement(query);
             
-            String vehicleNumberNew = vehicleSerial + vehicleNum;
+            String vehicleNumberNew = "";
+            vehicleNumberNew = vehicleSerial + vehicleNum;
             System.out.println(vehicleNumberNew);
    
             pst.setString(1, vehicleNumberNew);
@@ -278,7 +335,95 @@ public class ConnectDatabase {
             pst.close();
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e + " I'm from vehicle");
+            JOptionPane.showMessageDialog(null, e + ": I'm from storing vehicle info");
+        }
+    }
+    
+    public void storeDriverData(String driveBy, String name, String mobileNum, byte[] pic, byte[] licenseImage, String ID){
+        try{
+            String query = "insert into Driver(Driver, Name, Mobile, Photo, LicenseImage, ID) values(?,?,?,?,?,?)";
+            PreparedStatement pst = connection.prepareStatement(query);
+            
+            pst.setString(1, driveBy);
+            pst.setString(2, name);
+            pst.setString(3, mobileNum);
+            pst.setBytes(4, pic);
+            pst.setBytes(5, licenseImage);
+            pst.setString(6, ID);
+            
+            pst.executeUpdate();
+            pst.close();
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e + ": I'm from storing driver info");
+        }
+    }
+    
+    public void storeSemesterInfo(String semName, String semStartDate, String semEndDate){
+        try{
+            String query = "insert into Semester(SemesterName, StartDate, EndDate) values(?,?,?)";
+            PreparedStatement pst = connection.prepareStatement(query);
+            
+            pst.setString(1, semName);
+            pst.setString(2, semStartDate);
+            pst.setString(3, semEndDate);
+            
+            pst.executeUpdate();
+            pst.close();
+            JOptionPane.showMessageDialog(null, "Stored successfully");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e + ": I'm from Storing Semester info");
+        }
+    }
+    
+    public void updateSemesterInfo(String semName, String semStartDate, String semEndDate){
+        try{
+            if(semStartDate.equals("") && !semEndDate.equals("")){
+                String query = "update Semester set EndDate='" + semEndDate + "' where SemesterName='" + semName +"'";
+                PreparedStatement pst = connection.prepareStatement(query);
+                
+                pst.executeUpdate();
+                pst.close();
+            }else if(semEndDate.equals("") && !semStartDate.equals("")){
+                String query = "update Semester set StartDate='" + semStartDate + "' where SemesterName='" + semName +"'";
+                PreparedStatement pst = connection.prepareStatement(query);
+                
+                pst.executeUpdate();
+                pst.close();
+            }else{
+                String query = "update Semester set StartDate='" + semStartDate + "', EndDate='" + semEndDate + "' where SemesterName='" + semName +"'";
+                PreparedStatement pst = connection.prepareStatement(query);
+                
+                pst.executeUpdate();
+                pst.close();
+            }
+            JOptionPane.showMessageDialog(null, "Updated successfully");
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e + ": I'm from Updating Semester info");
+        }
+    }
+    
+    public void updateSemesterCurrentStatus(String currentDate){
+        try{
+            String query = "update Semester set Status='current' where SemesterName=(select SemesterName from Semester where EndDate > '" + currentDate + "')";
+            PreparedStatement pst = connection.prepareStatement(query);
+            
+            pst.executeUpdate();
+            pst.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e + ": I'm from Updating Semester Current Status");
+        }
+    }
+    public void updateSemesterPrevStatus(String currentDate){
+        try{
+            String query = "update Semester set Status='previous' where SemesterName=(select SemesterName from Semester where EndDate < '" + currentDate + "')";
+            PreparedStatement pst = connection.prepareStatement(query);
+            
+            pst.executeUpdate();
+            pst.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e + ": I'm from Updating Semester Previous Status");
         }
     }
     
@@ -366,4 +511,6 @@ public class ConnectDatabase {
             Logger.getLogger(ConnectDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
 }

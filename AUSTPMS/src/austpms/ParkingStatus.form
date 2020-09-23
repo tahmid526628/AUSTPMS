@@ -49,11 +49,12 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="5">
                 <StringItem index="0" value="None"/>
                 <StringItem index="1" value="Today"/>
                 <StringItem index="2" value="Yesterday"/>
                 <StringItem index="3" value="2 days ago"/>
+                <StringItem index="4" value="Guests"/>
               </StringArray>
             </Property>
           </Properties>

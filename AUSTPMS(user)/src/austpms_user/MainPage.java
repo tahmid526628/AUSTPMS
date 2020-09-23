@@ -65,10 +65,15 @@ public class MainPage extends javax.swing.JFrame {
 //    ConnectDatabase connectDatabase;
     private static final String VOICENAME = "kevin16";
     
-    ArrayList<JTextField> textFieldAr = new ArrayList<JTextField>();
-    ArrayList<JTextField> textFieldArForStudents = new ArrayList<JTextField>();
-    ArrayList<JTextField> textFieldArForStuffs = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForSelfDrivingCar= new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForTeacherCar= new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForTeacherBike= new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForStudentsCar = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForStudentsBike = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForStuffsCar = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForStuffsBike = new ArrayList<JTextField>();
     ArrayList<JTextField> textFieldArForGuests = new ArrayList<JTextField>();
+    ArrayList<JTextField> textFieldArForGuestsBike = new ArrayList<JTextField>();
 
     
     public MainPage() {
@@ -117,10 +122,8 @@ public class MainPage extends javax.swing.JFrame {
         professionLabel = new javax.swing.JLabel();
         vehicleTypeLabel = new javax.swing.JLabel();
         vehicleNumLabel = new javax.swing.JLabel();
-        confirmButton = new javax.swing.JButton();
         slotNumLabel = new javax.swing.JLabel();
         searchBar = new javax.swing.JTextField();
-        exitButton = new javax.swing.JButton();
         guestPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -133,6 +136,7 @@ public class MainPage extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         guestVehicleNumExitField = new javax.swing.JTextField();
         guestExitButton = new javax.swing.JButton();
+        guestVehicleTypeCombo = new javax.swing.JComboBox<>();
         dashboardPanel = new javax.swing.JPanel();
         dashboardScroll1 = new javax.swing.JScrollPane();
         basement1Panel = new javax.swing.JPanel();
@@ -419,17 +423,6 @@ public class MainPage extends javax.swing.JFrame {
         vehicleNumLabel.setText("Vehicle Number:");
         profilePanel.add(vehicleNumLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 340, 30));
 
-        confirmButton.setBackground(new java.awt.Color(0, 255, 153));
-        confirmButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        confirmButton.setText("Confirm");
-        confirmButton.setEnabled(false);
-        confirmButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmButtonActionPerformed(evt);
-            }
-        });
-        profilePanel.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 560, -1, -1));
-
         slotNumLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         slotNumLabel.setForeground(new java.awt.Color(255, 255, 255));
         slotNumLabel.setText("Parking Slot Number:");
@@ -451,17 +444,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         profilePanel.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 200, 30));
-
-        exitButton.setBackground(new java.awt.Color(204, 0, 51));
-        exitButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        exitButton.setText("Exit");
-        exitButton.setEnabled(false);
-        exitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitButtonActionPerformed(evt);
-            }
-        });
-        profilePanel.add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 560, 70, -1));
 
         mainPanel.add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 350, 600));
 
@@ -516,6 +498,9 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        guestVehicleTypeCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        guestVehicleTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Car", "Motor Bike" }));
+
         javax.swing.GroupLayout guestPanelLayout = new javax.swing.GroupLayout(guestPanel);
         guestPanel.setLayout(guestPanelLayout);
         guestPanelLayout.setHorizontalGroup(
@@ -550,7 +535,9 @@ public class MainPage extends javax.swing.JFrame {
                             .addGroup(guestPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(13, 13, 13)
-                                .addComponent(guestMobileField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(guestVehicleTypeCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(guestMobileField, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))))))
                 .addGap(33, 33, 33))
         );
         guestPanelLayout.setVerticalGroup(
@@ -570,9 +557,11 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(guestMobileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(guestVehicleTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(guestSubmit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(guestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(guestVehicleNumExitField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -600,429 +589,397 @@ public class MainPage extends javax.swing.JFrame {
         jLabel3.setText("Basement 1");
         top1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
-        basement1Panel.add(top1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 50));
+        basement1Panel.add(top1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 50));
 
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(0, 128, 0));
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField2.setText("B1C1");
+        jTextField2.setText("B1TC1");
         jTextField2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField2MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 54, 30));
+        basement1Panel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 60, 30));
 
         jTextField3.setEditable(false);
         jTextField3.setBackground(new java.awt.Color(0, 128, 0));
         jTextField3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField3.setText("B1C2");
+        jTextField3.setText("B1TC2");
         jTextField3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField3MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 54, 30));
+        basement1Panel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 60, 30));
 
         jTextField4.setEditable(false);
         jTextField4.setBackground(new java.awt.Color(0, 128, 0));
         jTextField4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField4.setText("B1C3");
+        jTextField4.setText("B1TC3");
         jTextField4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField4MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 54, 30));
+        basement1Panel.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 60, 30));
 
         jTextField5.setEditable(false);
         jTextField5.setBackground(new java.awt.Color(0, 128, 0));
         jTextField5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField5.setText("B1C4");
+        jTextField5.setText("B1TC4");
         jTextField5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField5MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 54, 30));
+        basement1Panel.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 60, 30));
 
         jTextField6.setEditable(false);
         jTextField6.setBackground(new java.awt.Color(0, 128, 0));
         jTextField6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField6.setText("B1C5");
+        jTextField6.setText("B1TC5");
         jTextField6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField6MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 54, 30));
+        basement1Panel.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 60, 30));
 
         jTextField7.setEditable(false);
         jTextField7.setBackground(new java.awt.Color(0, 128, 0));
         jTextField7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField7.setText("B1C6");
+        jTextField7.setText("B1TC6");
         jTextField7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField7MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 54, 30));
+        basement1Panel.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 60, 30));
 
         jTextField8.setEditable(false);
         jTextField8.setBackground(new java.awt.Color(0, 128, 0));
         jTextField8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField8.setText("B1C7");
+        jTextField8.setText("B1TC7");
         jTextField8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField8MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 54, 30));
+        basement1Panel.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 60, 30));
 
         jTextField9.setEditable(false);
         jTextField9.setBackground(new java.awt.Color(0, 128, 0));
         jTextField9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField9.setText("B1C8");
+        jTextField9.setText("B1TC8");
         jTextField9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField9MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 54, 30));
+        basement1Panel.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 60, 30));
 
         jTextField10.setEditable(false);
         jTextField10.setBackground(new java.awt.Color(0, 128, 0));
         jTextField10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField10.setText("B1C9");
+        jTextField10.setText("B1TC9");
         jTextField10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField10MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 54, 30));
+        basement1Panel.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 60, 30));
 
         jTextField11.setEditable(false);
         jTextField11.setBackground(new java.awt.Color(0, 128, 0));
         jTextField11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField11.setText("B1C10");
+        jTextField11.setText("B1TC10");
         jTextField11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextField11MousePressed(evt);
             }
         });
-        basement1Panel.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 54, 30));
+        basement1Panel.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 60, 30));
 
         jTextField12.setEditable(false);
         jTextField12.setBackground(new java.awt.Color(0, 128, 0));
         jTextField12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField12.setText("B1C11");
-        basement1Panel.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 54, 30));
+        jTextField12.setText("B1TC11");
+        basement1Panel.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 60, 30));
 
         jTextField13.setEditable(false);
         jTextField13.setBackground(new java.awt.Color(0, 128, 0));
         jTextField13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField13.setText("B1C12");
-        basement1Panel.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 54, 30));
+        jTextField13.setText("B1TC12");
+        basement1Panel.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 60, 30));
 
         jTextField14.setEditable(false);
         jTextField14.setBackground(new java.awt.Color(0, 128, 0));
         jTextField14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField14.setText("B1C13");
-        basement1Panel.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 54, 30));
+        jTextField14.setText("B1TC13");
+        basement1Panel.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 60, 30));
 
         jTextField15.setEditable(false);
         jTextField15.setBackground(new java.awt.Color(0, 128, 0));
         jTextField15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField15.setText("B1C14");
-        basement1Panel.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 54, 30));
+        jTextField15.setText("B1TC14");
+        basement1Panel.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 60, 30));
 
         jTextField16.setEditable(false);
         jTextField16.setBackground(new java.awt.Color(0, 128, 0));
         jTextField16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField16.setText("B1C15");
-        basement1Panel.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 54, 30));
+        jTextField16.setText("B1TC15");
+        basement1Panel.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 60, 30));
 
         jTextField17.setEditable(false);
         jTextField17.setBackground(new java.awt.Color(0, 128, 0));
         jTextField17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField17.setText("B1C16");
+        jTextField17.setText("B1TC16");
         jTextField17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField17ActionPerformed(evt);
             }
         });
-        basement1Panel.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 54, 30));
+        basement1Panel.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 60, 30));
 
         jTextField18.setEditable(false);
         jTextField18.setBackground(new java.awt.Color(0, 128, 0));
         jTextField18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField18.setText("B1C17");
-        basement1Panel.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 54, 30));
+        jTextField18.setText("B1TC17");
+        basement1Panel.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 60, 30));
 
         jTextField19.setEditable(false);
         jTextField19.setBackground(new java.awt.Color(0, 128, 0));
         jTextField19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField19.setText("B1C18");
-        basement1Panel.add(jTextField19, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 54, 30));
+        jTextField19.setText("B1TC18");
+        basement1Panel.add(jTextField19, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 60, 30));
 
         jTextField20.setEditable(false);
         jTextField20.setBackground(new java.awt.Color(0, 128, 0));
         jTextField20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField20.setText("B1C1");
-        jTextField20.setEnabled(false);
-        basement1Panel.add(jTextField20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 54, 30));
+        jTextField20.setText("B1TC19");
+        basement1Panel.add(jTextField20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 60, 30));
 
         jTextField21.setEditable(false);
         jTextField21.setBackground(new java.awt.Color(0, 128, 0));
         jTextField21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField21.setText("B1C1");
-        jTextField21.setEnabled(false);
-        basement1Panel.add(jTextField21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 54, 30));
+        jTextField21.setText("B1TC20");
+        basement1Panel.add(jTextField21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 60, 30));
 
         jTextField22.setEditable(false);
         jTextField22.setBackground(new java.awt.Color(0, 128, 0));
         jTextField22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField22.setText("B1C1");
-        jTextField22.setEnabled(false);
-        basement1Panel.add(jTextField22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 54, 30));
+        jTextField22.setText("B1SFC21");
+        basement1Panel.add(jTextField22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 60, 30));
 
         jTextField23.setEditable(false);
         jTextField23.setBackground(new java.awt.Color(0, 128, 0));
         jTextField23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField23.setText("B1C1");
-        jTextField23.setEnabled(false);
-        basement1Panel.add(jTextField23, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 54, 30));
+        jTextField23.setText("B1SFC22");
+        basement1Panel.add(jTextField23, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 60, 30));
 
         jTextField24.setEditable(false);
         jTextField24.setBackground(new java.awt.Color(0, 128, 0));
         jTextField24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField24.setText("B1C1");
-        jTextField24.setEnabled(false);
-        basement1Panel.add(jTextField24, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 54, 30));
+        jTextField24.setText("B1SFC23");
+        basement1Panel.add(jTextField24, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 60, 30));
 
         jTextField25.setEditable(false);
         jTextField25.setBackground(new java.awt.Color(0, 128, 0));
         jTextField25.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField25.setText("B1C1");
-        jTextField25.setEnabled(false);
-        basement1Panel.add(jTextField25, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 54, 30));
+        jTextField25.setText("B1SFC24");
+        basement1Panel.add(jTextField25, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 60, 30));
 
         jTextField26.setEditable(false);
         jTextField26.setBackground(new java.awt.Color(0, 128, 0));
         jTextField26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField26.setText("B1C1");
-        jTextField26.setEnabled(false);
-        basement1Panel.add(jTextField26, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 54, 30));
+        jTextField26.setText("B1SFC25");
+        basement1Panel.add(jTextField26, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 60, 30));
 
         jTextField27.setEditable(false);
         jTextField27.setBackground(new java.awt.Color(0, 128, 0));
         jTextField27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField27.setText("B1C1");
-        jTextField27.setEnabled(false);
-        basement1Panel.add(jTextField27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 54, 30));
+        jTextField27.setText("B1SC26");
+        basement1Panel.add(jTextField27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 60, 30));
 
         jTextField28.setEditable(false);
         jTextField28.setBackground(new java.awt.Color(0, 128, 0));
         jTextField28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField28.setText("B1C1");
-        jTextField28.setEnabled(false);
-        basement1Panel.add(jTextField28, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 54, 30));
+        jTextField28.setText("B1SC27");
+        basement1Panel.add(jTextField28, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 60, 30));
 
         jTextField29.setEditable(false);
         jTextField29.setBackground(new java.awt.Color(0, 128, 0));
         jTextField29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField29.setText("B1C1");
-        jTextField29.setEnabled(false);
-        basement1Panel.add(jTextField29, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 54, 30));
+        jTextField29.setText("B1SC28");
+        basement1Panel.add(jTextField29, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 60, 30));
 
         jTextField30.setEditable(false);
         jTextField30.setBackground(new java.awt.Color(0, 128, 0));
         jTextField30.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField30.setText("B1C1");
-        jTextField30.setEnabled(false);
-        basement1Panel.add(jTextField30, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 54, 30));
+        jTextField30.setText("B1SC29");
+        basement1Panel.add(jTextField30, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 60, 30));
 
         jTextField31.setEditable(false);
         jTextField31.setBackground(new java.awt.Color(0, 128, 0));
         jTextField31.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField31.setText("B1C1");
-        jTextField31.setEnabled(false);
-        basement1Panel.add(jTextField31, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 54, 30));
+        jTextField31.setText("B1SC30");
+        basement1Panel.add(jTextField31, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 60, 30));
 
         jTextField32.setEditable(false);
         jTextField32.setBackground(new java.awt.Color(0, 128, 0));
         jTextField32.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField32.setText("B1C1");
-        jTextField32.setEnabled(false);
-        basement1Panel.add(jTextField32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 54, 30));
+        jTextField32.setText("B1GC31");
+        basement1Panel.add(jTextField32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 60, 30));
 
         jTextField33.setEditable(false);
         jTextField33.setBackground(new java.awt.Color(0, 128, 0));
         jTextField33.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField33.setText("B1C1");
-        jTextField33.setEnabled(false);
-        basement1Panel.add(jTextField33, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 54, 30));
+        jTextField33.setText("B1GC32");
+        basement1Panel.add(jTextField33, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 60, 30));
 
         jTextField34.setEditable(false);
         jTextField34.setBackground(new java.awt.Color(0, 128, 0));
         jTextField34.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField34.setText("B1C1");
-        jTextField34.setEnabled(false);
-        basement1Panel.add(jTextField34, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 54, 30));
+        jTextField34.setText("B1GC33");
+        basement1Panel.add(jTextField34, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 60, 30));
 
         jTextField35.setEditable(false);
         jTextField35.setBackground(new java.awt.Color(0, 128, 0));
         jTextField35.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField35.setText("B1C1");
-        jTextField35.setEnabled(false);
-        basement1Panel.add(jTextField35, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 54, 30));
+        jTextField35.setText("B1GC34");
+        basement1Panel.add(jTextField35, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 60, 30));
 
         jTextField36.setEditable(false);
         jTextField36.setBackground(new java.awt.Color(0, 128, 0));
         jTextField36.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField36.setText("B1C1");
-        jTextField36.setEnabled(false);
-        basement1Panel.add(jTextField36, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 54, 30));
+        jTextField36.setText("B1GC35");
+        basement1Panel.add(jTextField36, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 60, 30));
 
         jTextField37.setEditable(false);
         jTextField37.setBackground(new java.awt.Color(0, 128, 0));
         jTextField37.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField37.setText("B1C1");
-        jTextField37.setEnabled(false);
-        basement1Panel.add(jTextField37, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 54, 30));
+        jTextField37.setText("B1TB1");
+        basement1Panel.add(jTextField37, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 60, 30));
 
         jTextField38.setEditable(false);
         jTextField38.setBackground(new java.awt.Color(0, 128, 0));
         jTextField38.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField38.setText("B1C1");
-        jTextField38.setEnabled(false);
-        basement1Panel.add(jTextField38, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 54, 30));
+        jTextField38.setText("B1TB2");
+        basement1Panel.add(jTextField38, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 60, 30));
 
         jTextField39.setEditable(false);
         jTextField39.setBackground(new java.awt.Color(0, 128, 0));
         jTextField39.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField39.setText("B1C1");
-        jTextField39.setEnabled(false);
-        basement1Panel.add(jTextField39, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 54, 30));
+        jTextField39.setText("B1TB3");
+        basement1Panel.add(jTextField39, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 60, 30));
 
         jTextField40.setEditable(false);
         jTextField40.setBackground(new java.awt.Color(0, 128, 0));
         jTextField40.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField40.setText("B1C1");
-        jTextField40.setEnabled(false);
-        basement1Panel.add(jTextField40, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 54, 30));
+        jTextField40.setText("B1TB4");
+        basement1Panel.add(jTextField40, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 60, 30));
 
         jTextField41.setEditable(false);
         jTextField41.setBackground(new java.awt.Color(0, 128, 0));
         jTextField41.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField41.setText("B1C1");
-        jTextField41.setEnabled(false);
-        basement1Panel.add(jTextField41, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 54, 30));
+        jTextField41.setText("B1TB5");
+        basement1Panel.add(jTextField41, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 60, 30));
 
         jTextField42.setEditable(false);
         jTextField42.setBackground(new java.awt.Color(0, 128, 0));
         jTextField42.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField42.setText("B1C1");
-        jTextField42.setEnabled(false);
-        basement1Panel.add(jTextField42, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 54, 30));
+        jTextField42.setText("B1TB6");
+        basement1Panel.add(jTextField42, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 60, 30));
 
         jTextField43.setEditable(false);
         jTextField43.setBackground(new java.awt.Color(0, 128, 0));
         jTextField43.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField43.setText("B1C1");
-        jTextField43.setEnabled(false);
-        basement1Panel.add(jTextField43, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 54, 30));
+        jTextField43.setText("B1TB7");
+        basement1Panel.add(jTextField43, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 60, 30));
 
         jTextField44.setEditable(false);
         jTextField44.setBackground(new java.awt.Color(0, 128, 0));
         jTextField44.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField44.setText("B1C1");
-        jTextField44.setEnabled(false);
-        basement1Panel.add(jTextField44, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 54, 30));
+        jTextField44.setText("B1TC8");
+        basement1Panel.add(jTextField44, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 60, 30));
 
         jTextField45.setEditable(false);
         jTextField45.setBackground(new java.awt.Color(0, 128, 0));
         jTextField45.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField45.setText("B1C1");
-        jTextField45.setEnabled(false);
-        basement1Panel.add(jTextField45, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 54, 30));
+        jTextField45.setText("B1TC9");
+        basement1Panel.add(jTextField45, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 60, 30));
 
         jTextField46.setEditable(false);
         jTextField46.setBackground(new java.awt.Color(0, 128, 0));
         jTextField46.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField46.setText("B1C1");
-        jTextField46.setEnabled(false);
-        basement1Panel.add(jTextField46, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 54, 30));
+        jTextField46.setText("B1TC10");
+        basement1Panel.add(jTextField46, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 60, 30));
 
         jTextField47.setEditable(false);
         jTextField47.setBackground(new java.awt.Color(0, 128, 0));
         jTextField47.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField47.setText("B1C1");
-        jTextField47.setEnabled(false);
-        basement1Panel.add(jTextField47, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 54, 30));
+        jTextField47.setText("B1SB11");
+        basement1Panel.add(jTextField47, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 60, 30));
 
         jTextField48.setEditable(false);
         jTextField48.setBackground(new java.awt.Color(0, 128, 0));
         jTextField48.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField48.setText("B1C1");
-        jTextField48.setEnabled(false);
-        basement1Panel.add(jTextField48, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 54, 30));
+        jTextField48.setText("B1SB12");
+        basement1Panel.add(jTextField48, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 60, 30));
 
         jTextField49.setEditable(false);
         jTextField49.setBackground(new java.awt.Color(0, 128, 0));
         jTextField49.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField49.setText("B1C1");
-        jTextField49.setEnabled(false);
-        basement1Panel.add(jTextField49, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 510, 54, 30));
+        jTextField49.setText("B1SB13");
+        basement1Panel.add(jTextField49, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 510, 60, 30));
 
         jTextField50.setEditable(false);
         jTextField50.setBackground(new java.awt.Color(0, 128, 0));
         jTextField50.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField50.setText("B1C1");
-        jTextField50.setEnabled(false);
-        basement1Panel.add(jTextField50, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 54, 30));
+        jTextField50.setText("B1SB14");
+        basement1Panel.add(jTextField50, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 60, 30));
 
         jTextField51.setEditable(false);
         jTextField51.setBackground(new java.awt.Color(0, 128, 0));
         jTextField51.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField51.setText("B1C1");
-        jTextField51.setEnabled(false);
-        basement1Panel.add(jTextField51, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 54, 30));
+        jTextField51.setText("B1SB15");
+        basement1Panel.add(jTextField51, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 60, 30));
 
         jTextField52.setEditable(false);
         jTextField52.setBackground(new java.awt.Color(0, 128, 0));
         jTextField52.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField52.setText("B1G1C51");
+        jTextField52.setText("B1GB16");
         jTextField52.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField52ActionPerformed(evt);
             }
         });
-        basement1Panel.add(jTextField52, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 54, 30));
+        basement1Panel.add(jTextField52, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 60, 30));
 
         jTextField53.setEditable(false);
         jTextField53.setBackground(new java.awt.Color(0, 128, 0));
         jTextField53.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField53.setText("B1G1C52");
-        basement1Panel.add(jTextField53, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 54, 30));
+        jTextField53.setText("B1GB17");
+        basement1Panel.add(jTextField53, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 60, 30));
 
         jTextField54.setEditable(false);
         jTextField54.setBackground(new java.awt.Color(0, 128, 0));
         jTextField54.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField54.setText("B1G1C53");
-        basement1Panel.add(jTextField54, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, 54, 30));
+        jTextField54.setText("B1GB18");
+        basement1Panel.add(jTextField54, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, 60, 30));
 
         jTextField55.setEditable(false);
         jTextField55.setBackground(new java.awt.Color(0, 128, 0));
         jTextField55.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField55.setText("B1G1C54");
-        basement1Panel.add(jTextField55, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 560, 54, 30));
+        jTextField55.setText("B1GB19");
+        basement1Panel.add(jTextField55, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 560, 60, 30));
 
         jTextField56.setEditable(false);
         jTextField56.setBackground(new java.awt.Color(0, 128, 0));
         jTextField56.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField56.setText("B1G1C55");
-        basement1Panel.add(jTextField56, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 54, 30));
+        jTextField56.setText("B1GB20");
+        basement1Panel.add(jTextField56, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 60, 30));
 
         dashboardScroll1.setViewportView(basement1Panel);
 
@@ -1046,387 +1003,332 @@ public class MainPage extends javax.swing.JFrame {
         jTextField57.setEditable(false);
         jTextField57.setBackground(new java.awt.Color(0, 128, 0));
         jTextField57.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField57.setText("B2C1");
-        jTextField57.setEnabled(false);
-        basement2Panel.add(jTextField57, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 54, 30));
+        jTextField57.setText("B2TC1");
+        basement2Panel.add(jTextField57, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 60, 30));
 
         jTextField58.setEditable(false);
         jTextField58.setBackground(new java.awt.Color(0, 128, 0));
         jTextField58.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField58.setText("B2C2");
-        jTextField58.setEnabled(false);
-        basement2Panel.add(jTextField58, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 54, 30));
+        jTextField58.setText("B2TC2");
+        basement2Panel.add(jTextField58, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 60, 30));
 
         jTextField59.setEditable(false);
         jTextField59.setBackground(new java.awt.Color(0, 128, 0));
         jTextField59.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField59.setText("B2C3");
-        jTextField59.setEnabled(false);
-        basement2Panel.add(jTextField59, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 54, 30));
+        jTextField59.setText("B2TC3");
+        basement2Panel.add(jTextField59, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 60, 30));
 
         jTextField60.setEditable(false);
         jTextField60.setBackground(new java.awt.Color(0, 128, 0));
         jTextField60.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField60.setText("B2C4");
-        jTextField60.setEnabled(false);
-        basement2Panel.add(jTextField60, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 54, 30));
+        jTextField60.setText("B2TC4");
+        basement2Panel.add(jTextField60, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 60, 30));
 
         jTextField61.setEditable(false);
         jTextField61.setBackground(new java.awt.Color(0, 128, 0));
         jTextField61.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField61.setText("B2C5");
-        jTextField61.setEnabled(false);
-        basement2Panel.add(jTextField61, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 54, 30));
+        jTextField61.setText("B2TC5");
+        basement2Panel.add(jTextField61, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 60, 30));
 
         jTextField62.setEditable(false);
         jTextField62.setBackground(new java.awt.Color(0, 128, 0));
         jTextField62.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField62.setText("B2C6");
-        jTextField62.setEnabled(false);
-        basement2Panel.add(jTextField62, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 54, 30));
+        jTextField62.setText("B2TC6");
+        basement2Panel.add(jTextField62, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 60, 30));
 
         jTextField63.setEditable(false);
         jTextField63.setBackground(new java.awt.Color(0, 128, 0));
         jTextField63.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField63.setText("B2C7");
-        jTextField63.setEnabled(false);
-        basement2Panel.add(jTextField63, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 54, 30));
+        jTextField63.setText("B2TC7");
+        basement2Panel.add(jTextField63, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 60, 30));
 
         jTextField64.setEditable(false);
         jTextField64.setBackground(new java.awt.Color(0, 128, 0));
         jTextField64.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField64.setText("B2C8");
-        jTextField64.setEnabled(false);
-        basement2Panel.add(jTextField64, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 54, 30));
+        jTextField64.setText("B2TC8");
+        basement2Panel.add(jTextField64, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 60, 30));
 
         jTextField65.setEditable(false);
         jTextField65.setBackground(new java.awt.Color(0, 128, 0));
         jTextField65.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField65.setText("B2C9");
-        jTextField65.setEnabled(false);
-        basement2Panel.add(jTextField65, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 54, 30));
+        jTextField65.setText("B2TC9");
+        basement2Panel.add(jTextField65, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 60, 30));
 
         jTextField66.setEditable(false);
         jTextField66.setBackground(new java.awt.Color(0, 128, 0));
         jTextField66.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField66.setText("B2C10");
-        jTextField66.setEnabled(false);
-        basement2Panel.add(jTextField66, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 54, 30));
+        jTextField66.setText("B2TC10");
+        basement2Panel.add(jTextField66, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 60, 30));
 
         jTextField67.setEditable(false);
         jTextField67.setBackground(new java.awt.Color(0, 128, 0));
         jTextField67.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField67.setText("B2C11");
-        jTextField67.setEnabled(false);
-        basement2Panel.add(jTextField67, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 54, 30));
+        jTextField67.setText("B2SC11");
+        basement2Panel.add(jTextField67, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 60, 30));
 
         jTextField68.setEditable(false);
         jTextField68.setBackground(new java.awt.Color(0, 128, 0));
         jTextField68.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField68.setText("B2C12");
-        jTextField68.setEnabled(false);
-        basement2Panel.add(jTextField68, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 54, 30));
+        jTextField68.setText("B2SC12");
+        basement2Panel.add(jTextField68, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 60, 30));
 
         jTextField69.setEditable(false);
         jTextField69.setBackground(new java.awt.Color(0, 128, 0));
         jTextField69.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField69.setText("B2C13");
-        jTextField69.setEnabled(false);
-        basement2Panel.add(jTextField69, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 54, 30));
+        jTextField69.setText("B2SC13");
+        basement2Panel.add(jTextField69, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 60, 30));
 
         jTextField70.setEditable(false);
         jTextField70.setBackground(new java.awt.Color(0, 128, 0));
         jTextField70.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField70.setText("B2C14");
-        jTextField70.setEnabled(false);
-        basement2Panel.add(jTextField70, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 54, 30));
+        jTextField70.setText("B2SC14");
+        basement2Panel.add(jTextField70, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 60, 30));
 
         jTextField71.setEditable(false);
         jTextField71.setBackground(new java.awt.Color(0, 128, 0));
         jTextField71.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField71.setText("B2C15");
-        jTextField71.setEnabled(false);
-        basement2Panel.add(jTextField71, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 54, 30));
+        jTextField71.setText("B2SC15");
+        basement2Panel.add(jTextField71, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 60, 30));
 
         jTextField72.setEditable(false);
         jTextField72.setBackground(new java.awt.Color(0, 128, 0));
         jTextField72.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField72.setText("B1C1");
-        jTextField72.setEnabled(false);
-        basement2Panel.add(jTextField72, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 54, 30));
+        jTextField72.setText("B2SC16");
+        basement2Panel.add(jTextField72, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 60, 30));
 
         jTextField73.setEditable(false);
         jTextField73.setBackground(new java.awt.Color(0, 128, 0));
         jTextField73.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField73.setText("B1C1");
-        jTextField73.setEnabled(false);
-        basement2Panel.add(jTextField73, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 54, 30));
+        jTextField73.setText("B2SC17");
+        basement2Panel.add(jTextField73, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 60, 30));
 
         jTextField74.setEditable(false);
         jTextField74.setBackground(new java.awt.Color(0, 128, 0));
         jTextField74.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField74.setText("B1C1");
-        jTextField74.setEnabled(false);
-        basement2Panel.add(jTextField74, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 54, 30));
+        jTextField74.setText("B2SC18");
+        basement2Panel.add(jTextField74, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 60, 30));
 
         jTextField75.setEditable(false);
         jTextField75.setBackground(new java.awt.Color(0, 128, 0));
         jTextField75.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField75.setText("B1C1");
-        jTextField75.setEnabled(false);
-        basement2Panel.add(jTextField75, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 54, 30));
+        jTextField75.setText("B2SC19");
+        basement2Panel.add(jTextField75, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 60, 30));
 
         jTextField76.setEditable(false);
         jTextField76.setBackground(new java.awt.Color(0, 128, 0));
         jTextField76.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField76.setText("B1C1");
-        jTextField76.setEnabled(false);
-        basement2Panel.add(jTextField76, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 54, 30));
+        jTextField76.setText("B2SC120");
+        basement2Panel.add(jTextField76, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 60, 30));
 
         jTextField77.setEditable(false);
         jTextField77.setBackground(new java.awt.Color(0, 128, 0));
         jTextField77.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField77.setText("B1C1");
-        jTextField77.setEnabled(false);
-        basement2Panel.add(jTextField77, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 54, 30));
+        jTextField77.setText("B2SC21");
+        basement2Panel.add(jTextField77, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 60, 30));
 
         jTextField78.setEditable(false);
         jTextField78.setBackground(new java.awt.Color(0, 128, 0));
         jTextField78.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField78.setText("B1C1");
-        jTextField78.setEnabled(false);
-        basement2Panel.add(jTextField78, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 54, 30));
+        jTextField78.setText("B2SC22");
+        basement2Panel.add(jTextField78, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 60, 30));
 
         jTextField79.setEditable(false);
         jTextField79.setBackground(new java.awt.Color(0, 128, 0));
         jTextField79.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField79.setText("B1C1");
-        jTextField79.setEnabled(false);
-        basement2Panel.add(jTextField79, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 54, 30));
+        jTextField79.setText("B2SC23");
+        basement2Panel.add(jTextField79, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 60, 30));
 
         jTextField80.setEditable(false);
         jTextField80.setBackground(new java.awt.Color(0, 128, 0));
         jTextField80.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField80.setText("B1C1");
-        jTextField80.setEnabled(false);
-        basement2Panel.add(jTextField80, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 54, 30));
+        jTextField80.setText("B2SC24");
+        basement2Panel.add(jTextField80, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 60, 30));
 
         jTextField81.setEditable(false);
         jTextField81.setBackground(new java.awt.Color(0, 128, 0));
         jTextField81.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField81.setText("B1C1");
-        jTextField81.setEnabled(false);
-        basement2Panel.add(jTextField81, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 54, 30));
+        jTextField81.setText("B2SC25");
+        basement2Panel.add(jTextField81, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 60, 30));
 
         jTextField82.setEditable(false);
         jTextField82.setBackground(new java.awt.Color(0, 128, 0));
         jTextField82.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField82.setText("B1C1");
-        jTextField82.setEnabled(false);
-        basement2Panel.add(jTextField82, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 54, 30));
+        jTextField82.setText("B2SB1");
+        basement2Panel.add(jTextField82, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 60, 30));
 
         jTextField83.setEditable(false);
         jTextField83.setBackground(new java.awt.Color(0, 128, 0));
         jTextField83.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField83.setText("B1C1");
-        jTextField83.setEnabled(false);
-        basement2Panel.add(jTextField83, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 54, 30));
+        jTextField83.setText("B2SB2");
+        basement2Panel.add(jTextField83, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 60, 30));
 
         jTextField84.setEditable(false);
         jTextField84.setBackground(new java.awt.Color(0, 128, 0));
         jTextField84.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField84.setText("B1C1");
-        jTextField84.setEnabled(false);
-        basement2Panel.add(jTextField84, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 54, 30));
+        jTextField84.setText("B2SB3");
+        basement2Panel.add(jTextField84, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 60, 30));
 
         jTextField85.setEditable(false);
         jTextField85.setBackground(new java.awt.Color(0, 128, 0));
         jTextField85.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField85.setText("B1C1");
-        jTextField85.setEnabled(false);
-        basement2Panel.add(jTextField85, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 54, 30));
+        jTextField85.setText("B2SB4");
+        basement2Panel.add(jTextField85, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 60, 30));
 
         jTextField86.setEditable(false);
         jTextField86.setBackground(new java.awt.Color(0, 128, 0));
         jTextField86.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField86.setText("B1C1");
-        jTextField86.setEnabled(false);
-        basement2Panel.add(jTextField86, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 54, 30));
+        jTextField86.setText("B2SB5");
+        basement2Panel.add(jTextField86, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 60, 30));
 
         jTextField87.setEditable(false);
         jTextField87.setBackground(new java.awt.Color(0, 128, 0));
         jTextField87.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField87.setText("B1C1");
-        jTextField87.setEnabled(false);
-        basement2Panel.add(jTextField87, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 54, 30));
+        jTextField87.setText("B2SB6");
+        basement2Panel.add(jTextField87, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 60, 30));
 
         jTextField88.setEditable(false);
         jTextField88.setBackground(new java.awt.Color(0, 128, 0));
         jTextField88.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField88.setText("B1C1");
-        jTextField88.setEnabled(false);
-        basement2Panel.add(jTextField88, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 54, 30));
+        jTextField88.setText("B2SB7");
+        basement2Panel.add(jTextField88, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 60, 30));
 
         jTextField89.setEditable(false);
         jTextField89.setBackground(new java.awt.Color(0, 128, 0));
         jTextField89.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField89.setText("B1C1");
-        jTextField89.setEnabled(false);
-        basement2Panel.add(jTextField89, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 54, 30));
+        jTextField89.setText("B2SB8");
+        basement2Panel.add(jTextField89, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 60, 30));
 
         jTextField90.setEditable(false);
         jTextField90.setBackground(new java.awt.Color(0, 128, 0));
         jTextField90.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField90.setText("B1C1");
-        jTextField90.setEnabled(false);
-        basement2Panel.add(jTextField90, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 54, 30));
+        jTextField90.setText("B2SB9");
+        basement2Panel.add(jTextField90, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 60, 30));
 
         jTextField91.setEditable(false);
         jTextField91.setBackground(new java.awt.Color(0, 128, 0));
         jTextField91.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField91.setText("B1C1");
-        jTextField91.setEnabled(false);
-        basement2Panel.add(jTextField91, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 54, 30));
+        jTextField91.setText("B2SB10");
+        basement2Panel.add(jTextField91, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 60, 30));
 
         jTextField92.setEditable(false);
         jTextField92.setBackground(new java.awt.Color(0, 128, 0));
         jTextField92.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField92.setText("B1C1");
-        jTextField92.setEnabled(false);
-        basement2Panel.add(jTextField92, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 54, 30));
+        jTextField92.setText("B2SB11");
+        basement2Panel.add(jTextField92, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 60, 30));
 
         jTextField93.setEditable(false);
         jTextField93.setBackground(new java.awt.Color(0, 128, 0));
         jTextField93.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField93.setText("B1C1");
-        jTextField93.setEnabled(false);
-        basement2Panel.add(jTextField93, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 54, 30));
+        jTextField93.setText("B2SB12");
+        basement2Panel.add(jTextField93, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 60, 30));
 
         jTextField94.setEditable(false);
         jTextField94.setBackground(new java.awt.Color(0, 128, 0));
         jTextField94.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField94.setText("B1C1");
-        jTextField94.setEnabled(false);
-        basement2Panel.add(jTextField94, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 54, 30));
+        jTextField94.setText("B2SB13");
+        basement2Panel.add(jTextField94, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 60, 30));
 
         jTextField95.setEditable(false);
         jTextField95.setBackground(new java.awt.Color(0, 128, 0));
         jTextField95.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField95.setText("B1C1");
-        jTextField95.setEnabled(false);
-        basement2Panel.add(jTextField95, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 54, 30));
+        jTextField95.setText("B2SB14");
+        basement2Panel.add(jTextField95, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 60, 30));
 
         jTextField96.setEditable(false);
         jTextField96.setBackground(new java.awt.Color(0, 128, 0));
         jTextField96.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField96.setText("B1C1");
-        jTextField96.setEnabled(false);
-        basement2Panel.add(jTextField96, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 54, 30));
+        jTextField96.setText("B2SB15");
+        basement2Panel.add(jTextField96, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 60, 30));
 
         jTextField97.setEditable(false);
         jTextField97.setBackground(new java.awt.Color(0, 128, 0));
         jTextField97.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField97.setText("B1C1");
-        jTextField97.setEnabled(false);
-        basement2Panel.add(jTextField97, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 54, 30));
+        jTextField97.setText("B2SB16");
+        basement2Panel.add(jTextField97, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 60, 30));
 
         jTextField98.setEditable(false);
         jTextField98.setBackground(new java.awt.Color(0, 128, 0));
         jTextField98.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField98.setText("B1C1");
-        jTextField98.setEnabled(false);
-        basement2Panel.add(jTextField98, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 54, 30));
+        jTextField98.setText("B2SB17");
+        basement2Panel.add(jTextField98, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 60, 30));
 
         jTextField99.setEditable(false);
         jTextField99.setBackground(new java.awt.Color(0, 128, 0));
         jTextField99.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField99.setText("B1C1");
-        jTextField99.setEnabled(false);
-        basement2Panel.add(jTextField99, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 54, 30));
+        jTextField99.setText("B2SB18");
+        basement2Panel.add(jTextField99, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 60, 30));
 
         jTextField100.setEditable(false);
         jTextField100.setBackground(new java.awt.Color(0, 128, 0));
         jTextField100.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField100.setText("B1C1");
-        jTextField100.setEnabled(false);
-        basement2Panel.add(jTextField100, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 54, 30));
+        jTextField100.setText("B2SB19");
+        basement2Panel.add(jTextField100, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 60, 30));
 
         jTextField101.setEditable(false);
         jTextField101.setBackground(new java.awt.Color(0, 128, 0));
         jTextField101.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField101.setText("B1C1");
-        jTextField101.setEnabled(false);
-        basement2Panel.add(jTextField101, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 54, 30));
+        jTextField101.setText("B2SB20");
+        basement2Panel.add(jTextField101, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 60, 30));
 
         jTextField102.setEditable(false);
         jTextField102.setBackground(new java.awt.Color(0, 128, 0));
         jTextField102.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField102.setText("B1C1");
-        jTextField102.setEnabled(false);
-        basement2Panel.add(jTextField102, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 54, 30));
+        jTextField102.setText("B2SFB21");
+        basement2Panel.add(jTextField102, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 60, 30));
 
         jTextField103.setEditable(false);
         jTextField103.setBackground(new java.awt.Color(0, 128, 0));
         jTextField103.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField103.setText("B1C1");
-        jTextField103.setEnabled(false);
-        basement2Panel.add(jTextField103, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 54, 30));
+        jTextField103.setText("B2SFB22");
+        basement2Panel.add(jTextField103, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 60, 30));
 
         jTextField104.setEditable(false);
         jTextField104.setBackground(new java.awt.Color(0, 128, 0));
         jTextField104.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField104.setText("B1C1");
-        jTextField104.setEnabled(false);
-        basement2Panel.add(jTextField104, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 510, 54, 30));
+        jTextField104.setText("B2SFB23");
+        basement2Panel.add(jTextField104, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 510, 60, 30));
 
         jTextField105.setEditable(false);
         jTextField105.setBackground(new java.awt.Color(0, 128, 0));
         jTextField105.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField105.setText("B1C1");
-        jTextField105.setEnabled(false);
-        basement2Panel.add(jTextField105, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 54, 30));
+        jTextField105.setText("B2SFB24");
+        basement2Panel.add(jTextField105, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 60, 30));
 
         jTextField106.setEditable(false);
         jTextField106.setBackground(new java.awt.Color(0, 128, 0));
         jTextField106.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField106.setText("B1C1");
-        jTextField106.setEnabled(false);
-        basement2Panel.add(jTextField106, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 54, 30));
+        jTextField106.setText("B2SFB25");
+        basement2Panel.add(jTextField106, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 60, 30));
 
         jTextField107.setEditable(false);
         jTextField107.setBackground(new java.awt.Color(0, 128, 0));
         jTextField107.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField107.setText("B1C1");
-        jTextField107.setEnabled(false);
-        basement2Panel.add(jTextField107, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 54, 30));
+        jTextField107.setText("B2SFB26");
+        basement2Panel.add(jTextField107, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 60, 30));
 
         jTextField108.setEditable(false);
         jTextField108.setBackground(new java.awt.Color(0, 128, 0));
         jTextField108.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField108.setText("B1C1");
-        jTextField108.setEnabled(false);
-        basement2Panel.add(jTextField108, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 54, 30));
+        jTextField108.setText("B2SFB27");
+        basement2Panel.add(jTextField108, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 60, 30));
 
         jTextField109.setEditable(false);
         jTextField109.setBackground(new java.awt.Color(0, 128, 0));
         jTextField109.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField109.setText("B1C1");
-        jTextField109.setEnabled(false);
-        basement2Panel.add(jTextField109, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, 54, 30));
+        jTextField109.setText("B2SFB28");
+        basement2Panel.add(jTextField109, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, 60, 30));
 
         jTextField110.setEditable(false);
         jTextField110.setBackground(new java.awt.Color(0, 128, 0));
         jTextField110.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField110.setText("B1C1");
-        jTextField110.setEnabled(false);
-        basement2Panel.add(jTextField110, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 560, 54, 30));
+        jTextField110.setText("B2SFB29");
+        basement2Panel.add(jTextField110, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 560, 60, 30));
 
         jTextField111.setEditable(false);
         jTextField111.setBackground(new java.awt.Color(0, 128, 0));
         jTextField111.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField111.setText("B1C1");
-        jTextField111.setEnabled(false);
-        basement2Panel.add(jTextField111, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 54, 30));
+        jTextField111.setText("B2SFB30");
+        basement2Panel.add(jTextField111, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 60, 30));
 
         dashboardScroll2.setViewportView(basement2Panel);
 
@@ -1441,36 +1343,145 @@ public class MainPage extends javax.swing.JFrame {
 
     
     private void addToArrayList(){
-        // array allocation for teachers slot
-        textFieldAr.add(jTextField2);
-        textFieldAr.add(jTextField3);
-        textFieldAr.add(jTextField4);
-        textFieldAr.add(jTextField5);
-        textFieldAr.add(jTextField6);
-        textFieldAr.add(jTextField7);
-        textFieldAr.add(jTextField8);
-        textFieldAr.add(jTextField9);
-        textFieldAr.add(jTextField10);
-        textFieldAr.add(jTextField11);
         
-        // array allocation for students slot
-        textFieldArForStudents.add(jTextField12);
-        textFieldArForStudents.add(jTextField13);
-        textFieldArForStudents.add(jTextField14);
-        textFieldArForStudents.add(jTextField15);
-        textFieldArForStudents.add(jTextField16);
+        textFieldArForSelfDrivingCar.add(jTextField2);
+        textFieldArForSelfDrivingCar.add(jTextField3);
+        textFieldArForSelfDrivingCar.add(jTextField4);
+        textFieldArForSelfDrivingCar.add(jTextField5);
+        textFieldArForSelfDrivingCar.add(jTextField6);
         
-        // array allocation for stuffs
-        textFieldArForStuffs.add(jTextField17);
-        textFieldArForStuffs.add(jTextField18);
-        textFieldArForStuffs.add(jTextField19);
+        /* ===================== Techers =======================*/
+        // array allocation for teachers slot car
+        textFieldArForTeacherCar.add(jTextField7);
+        textFieldArForTeacherCar.add(jTextField8);
+        textFieldArForTeacherCar.add(jTextField9);
+        textFieldArForTeacherCar.add(jTextField10);
+        textFieldArForTeacherCar.add(jTextField11);
+        textFieldArForTeacherCar.add(jTextField12);
+        textFieldArForTeacherCar.add(jTextField13);
+        textFieldArForTeacherCar.add(jTextField14);
+        textFieldArForTeacherCar.add(jTextField15);
+        textFieldArForTeacherCar.add(jTextField16);
+        textFieldArForTeacherCar.add(jTextField17);
+        textFieldArForTeacherCar.add(jTextField18);
+        textFieldArForTeacherCar.add(jTextField19);
+        textFieldArForTeacherCar.add(jTextField20);
+        textFieldArForTeacherCar.add(jTextField21);
+        // basement 2
+        textFieldArForTeacherCar.add(jTextField57);
+        textFieldArForTeacherCar.add(jTextField58);
+        textFieldArForTeacherCar.add(jTextField59);
+        textFieldArForTeacherCar.add(jTextField60);
+        textFieldArForTeacherCar.add(jTextField61);
+        textFieldArForTeacherCar.add(jTextField62);
+        textFieldArForTeacherCar.add(jTextField63);
+        textFieldArForTeacherCar.add(jTextField64);
+        textFieldArForTeacherCar.add(jTextField65);
+        textFieldArForTeacherCar.add(jTextField66);
         
-        // array allocation for guests
-        textFieldArForGuests.add(jTextField52);
-        textFieldArForGuests.add(jTextField53);
-        textFieldArForGuests.add(jTextField54);
-        textFieldArForGuests.add(jTextField55);
-        textFieldArForGuests.add(jTextField56);
+        //array allocation for teachers slot bike
+        textFieldArForTeacherBike.add(jTextField37);
+        textFieldArForTeacherBike.add(jTextField38);
+        textFieldArForTeacherBike.add(jTextField39);
+        textFieldArForTeacherBike.add(jTextField40);
+        textFieldArForTeacherBike.add(jTextField41);
+        textFieldArForTeacherBike.add(jTextField42);
+        textFieldArForTeacherBike.add(jTextField43);
+        textFieldArForTeacherBike.add(jTextField44);
+        textFieldArForTeacherBike.add(jTextField45);
+        textFieldArForTeacherBike.add(jTextField46);
+        
+        
+        
+        /* ====================Students==============*/
+        // array allocation for students car slot
+        textFieldArForStudentsCar.add(jTextField27);
+        textFieldArForStudentsCar.add(jTextField28);
+        textFieldArForStudentsCar.add(jTextField29);
+        textFieldArForStudentsCar.add(jTextField30);
+        textFieldArForStudentsCar.add(jTextField31);
+        //basement 2
+        textFieldArForStudentsCar.add(jTextField67);
+        textFieldArForStudentsCar.add(jTextField68);
+        textFieldArForStudentsCar.add(jTextField69);
+        textFieldArForStudentsCar.add(jTextField70);
+        textFieldArForStudentsCar.add(jTextField71);
+        textFieldArForStudentsCar.add(jTextField72);
+        textFieldArForStudentsCar.add(jTextField73);
+        textFieldArForStudentsCar.add(jTextField74);
+        textFieldArForStudentsCar.add(jTextField75);
+        textFieldArForStudentsCar.add(jTextField76);
+        textFieldArForStudentsCar.add(jTextField77);
+        textFieldArForStudentsCar.add(jTextField78);
+        textFieldArForStudentsCar.add(jTextField79);
+        textFieldArForStudentsCar.add(jTextField80);
+        textFieldArForStudentsCar.add(jTextField81);
+        
+        
+        //array alocation for students bike slot
+        textFieldArForStudentsBike.add(jTextField47);
+        textFieldArForStudentsBike.add(jTextField48);
+        textFieldArForStudentsBike.add(jTextField49);
+        textFieldArForStudentsBike.add(jTextField50);
+        textFieldArForStudentsBike.add(jTextField51);
+        //basement 2
+        textFieldArForStudentsBike.add(jTextField82);
+        textFieldArForStudentsBike.add(jTextField83);
+        textFieldArForStudentsBike.add(jTextField84);
+        textFieldArForStudentsBike.add(jTextField85);
+        textFieldArForStudentsBike.add(jTextField86);
+        textFieldArForStudentsBike.add(jTextField87);
+        textFieldArForStudentsBike.add(jTextField88);
+        textFieldArForStudentsBike.add(jTextField89);
+        textFieldArForStudentsBike.add(jTextField90);
+        textFieldArForStudentsBike.add(jTextField91);
+        textFieldArForStudentsBike.add(jTextField92);
+        textFieldArForStudentsBike.add(jTextField93);
+        textFieldArForStudentsBike.add(jTextField94);
+        textFieldArForStudentsBike.add(jTextField95);
+        textFieldArForStudentsBike.add(jTextField96);
+        textFieldArForStudentsBike.add(jTextField97);
+        textFieldArForStudentsBike.add(jTextField98);
+        textFieldArForStudentsBike.add(jTextField99);
+        textFieldArForStudentsBike.add(jTextField100);
+        textFieldArForStudentsBike.add(jTextField101);
+        
+        
+        // ========================= Staffs ======================
+        // array allocation for staffs car
+        textFieldArForStuffsCar.add(jTextField22);
+        textFieldArForStuffsCar.add(jTextField23);
+        textFieldArForStuffsCar.add(jTextField24);
+        textFieldArForStuffsCar.add(jTextField25);
+        textFieldArForStuffsCar.add(jTextField26);
+        
+        // array allcation for staffs bike
+        textFieldArForStuffsBike.add(jTextField102);
+        textFieldArForStuffsBike.add(jTextField103);
+        textFieldArForStuffsBike.add(jTextField104);
+        textFieldArForStuffsBike.add(jTextField105);
+        textFieldArForStuffsBike.add(jTextField106);
+        textFieldArForStuffsBike.add(jTextField107);
+        textFieldArForStuffsBike.add(jTextField108);
+        textFieldArForStuffsBike.add(jTextField109);
+        textFieldArForStuffsBike.add(jTextField110);
+        textFieldArForStuffsBike.add(jTextField111);
+        
+//        System.out.println(textFieldArForStuffs);
+        
+        /* =============== Guest ==================== */
+        // array allocation for guests car
+        textFieldArForGuests.add(jTextField32);
+        textFieldArForGuests.add(jTextField33);
+        textFieldArForGuests.add(jTextField34);
+        textFieldArForGuests.add(jTextField35);
+        textFieldArForGuests.add(jTextField36);
+        
+        textFieldArForGuestsBike.add(jTextField52);
+        textFieldArForGuestsBike.add(jTextField53);
+        textFieldArForGuestsBike.add(jTextField54);
+        textFieldArForGuestsBike.add(jTextField55);
+        textFieldArForGuestsBike.add(jTextField56);
     }
     
     // proti bar input deyar por value reset korar jonno
@@ -1485,8 +1496,6 @@ public class MainPage extends javax.swing.JFrame {
         statusLabel.setText("Status: ");
         slotNumLabel.setText("Parking Slot Number: ");
         
-        exitButton.setEnabled(false);
-        confirmButton.setEnabled(false);
         isConfirm = false;
         isExit = false;
         searchBar.setText("");
@@ -1494,6 +1503,10 @@ public class MainPage extends javax.swing.JFrame {
         
         tempTextField = null;
         tempTextField1 = null;
+        
+        guestNameField.setText("");
+        guestVehicleNumField.setText("");
+        guestMobileField.setText("");
     }
     
     // software first open korar por database onujaayi slot fill korar jonno nicher function 2
@@ -1515,20 +1528,32 @@ public class MainPage extends javax.swing.JFrame {
     }
     
     private void setTextFieldToStart(){
+        for(int count=0; count<textFieldArForSelfDrivingCar.size(); count++){
+            setTextFieldInstance(textFieldArForSelfDrivingCar.get(count)); // checking the object in array list
+        }
+        
         // set teachers slots
-        for(int count=0; count<textFieldAr.size(); count++){
-            setTextFieldInstance(textFieldAr.get(count)); // checking the object in array list
-//            System.out.println(textFieldAr.get(count));
+        for(int count=0; count<textFieldArForTeacherCar.size(); count++){
+            setTextFieldInstance(textFieldArForTeacherCar.get(count)); // checking the object in array list
+        }
+        for(int count=0; count<textFieldArForTeacherBike.size(); count++){
+            setTextFieldInstance(textFieldArForTeacherBike.get(count)); // checking the object in array list
         }
         
         // set students slots
-        for(int count=0; count<textFieldArForStudents.size(); count++){
-            setTextFieldInstance(textFieldArForStudents.get(count));
+        for(int count=0; count<textFieldArForStudentsCar.size(); count++){
+            setTextFieldInstance(textFieldArForStudentsCar.get(count));
+        }
+        for(int count=0; count<textFieldArForStudentsBike.size(); count++){
+            setTextFieldInstance(textFieldArForStudentsBike.get(count));
         }
         
         // set stuffs slots
-        for(int count=0; count<textFieldArForStuffs.size(); count++){
-            setTextFieldInstance(textFieldArForStuffs.get(count));
+        for(int count=0; count<textFieldArForStuffsCar.size(); count++){
+            setTextFieldInstance(textFieldArForStuffsCar.get(count));
+        }
+        for(int count=0; count<textFieldArForStuffsBike.size(); count++){
+            setTextFieldInstance(textFieldArForStuffsBike.get(count));
         }
     }
     
@@ -1555,6 +1580,10 @@ public class MainPage extends javax.swing.JFrame {
         for(int count=0; count<textFieldArForGuests.size(); count++){
             setTextFieldInstanceForGuests(textFieldArForGuests.get(count));
         }
+        
+        for(int count=0; count<textFieldArForGuestsBike.size(); count++){
+            setTextFieldInstanceForGuests(textFieldArForGuestsBike.get(count));
+        }
     }
     /* ===== 10 Sept, 2020=====*/
 
@@ -1564,13 +1593,14 @@ public class MainPage extends javax.swing.JFrame {
         ConnectDatabase connectDatabase = new ConnectDatabase();
         connectDatabase.ConnectDB();
 
-
+//        System.out.println(textField);
        /*******************************edited**********************/
        if(profileActiveState){
             if(isConfirm && textField.getBackground().equals(new Color(0, 128, 0))){ // so ekbar red hoye gele oi eki slot onno keo use korte parbe na
             slotNumLabel.setText("Parking Slot Number: " + textField.getText());
             //setTextFieldColor(jTextField2);
-            tempTextField = textField; // copy obj for tracking which slot to be red or green                 
+            tempTextField = textField; // copy obj for tracking which slot to be red or green   
+//            System.out.println(tempTextField);
             }
             else if(isExit && !isConfirm){
 
@@ -1646,6 +1676,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
         // TODO add your handling code here:
+        // =================== parking works here ====================
         
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             //String id = null;
@@ -1696,15 +1727,11 @@ public class MainPage extends javax.swing.JFrame {
             if(connectDatabase.getParkingStatus().equals("Yes")){
                 slotNum = connectDatabase.getSlotNumber();
                 slotNumLabel.setText("Parking Slot Number: " + slotNum);
-                confirmButton.setEnabled(false);
-                exitButton.setEnabled(true);
                 isConfirm = false; // parking status is Yes, that is, she parking e silo ekhon ber hobe
                 isExit = true;
             }
             else if(connectDatabase.getParkingStatus().equals("No")){
                 slotNumLabel.setText("Parking Slot Number: ");
-                confirmButton.setEnabled(true);
-                exitButton.setEnabled(false);
                 isConfirm = true; // parking status No, that is, she parking e entry nibe. r tai isConfirm=true, isExit=false
                 isExit = false;
             }
@@ -1733,24 +1760,69 @@ public class MainPage extends javax.swing.JFrame {
             // checking and setting the slot in Array list of teachers through the booleans like isConfirm, isExit, etc.
             //============= updated with condition check(10 Sept, 2020)===========
             if(profession.equals("Teacher")){
-                for(int count=0; count<textFieldAr.size(); count++){
-                    textFieldAction(textFieldAr.get(count));
-                    if(tempTextField != null)
-                        break;
+                if(vehicleType.equals("Car")){
+                    for(int count=0; count<textFieldArForTeacherCar.size(); count++){
+                        textFieldAction(textFieldArForTeacherCar.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
+                }else if(vehicleType.equals("Motor Bike")){
+                    for(int count=0; count<textFieldArForTeacherBike.size(); count++){
+                        textFieldAction(textFieldArForTeacherBike.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
+                }else if(vehicleType.equals("Self Driving Car")){
+                    for(int count=0; count<textFieldArForSelfDrivingCar.size(); count++){
+                        textFieldAction(textFieldArForSelfDrivingCar.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
                 }
             }
             else if(profession.equals("Student")){
-                for(int count=0; count<textFieldArForStudents.size(); count++){
-                    textFieldAction(textFieldArForStudents.get(count));
-                    if(tempTextField != null)
-                        break;
+                if(vehicleType.equals("Motor Bike")){
+                    for(int count=0; count<textFieldArForStudentsBike.size(); count++){
+                        textFieldAction(textFieldArForStudentsBike.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
+                }
+                else if(vehicleType.equals("Car")){
+                    for(int count=0; count<textFieldArForStudentsCar.size(); count++){
+                        textFieldAction(textFieldArForStudentsCar.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
+                }
+                else if(vehicleType.equals("Self Driving Car")){
+                    for(int count=0; count<textFieldArForSelfDrivingCar.size(); count++){
+                        textFieldAction(textFieldArForSelfDrivingCar.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
                 }
             }
-            else if(profession.equals("Stuff")){
-                for(int count=0; count<textFieldArForStuffs.size(); count++){
-                    textFieldAction(textFieldArForStuffs.get(count));
-                    if(tempTextField != null)
-                        break;
+            else if(profession.equals("Staff")){
+                if(vehicleType.equals("Car")){
+                    for(int count=0; count<textFieldArForStuffsCar.size(); count++){
+                        textFieldAction(textFieldArForStuffsCar.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
+                }else if(vehicleType.equals("Motor Bike")){
+                    for(int count=0; count<textFieldArForStuffsBike.size(); count++){
+                        textFieldAction(textFieldArForStuffsBike.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
+                }
+                else if(vehicleType.equals("Self Driving Car")){
+                    for(int count=0; count<textFieldArForSelfDrivingCar.size(); count++){
+                        textFieldAction(textFieldArForSelfDrivingCar.get(count));
+                        if(tempTextField != null)
+                            break;
+                    }
                 }
             }
             
@@ -1834,7 +1906,7 @@ public class MainPage extends javax.swing.JFrame {
                 // that is a person wants to leave
                 setTextFieldColor(tempTextField1);
         
-                connectDatabase.updateParkingData("No", id);
+                connectDatabase.updateParkingData("No", id, new Time().getCurrentTime());
                 //JOptionPane.showMessageDialog(null, "Exit. Thankyou");
                                
                 // exit dialogue
@@ -1896,53 +1968,6 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         textFieldAction(jTextField2);       
     }//GEN-LAST:event_jTextField2MousePressed
-
-    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
-        // TODO add your handling code here:
-        //isConfirm = true;
-//        if(tempTextField != null){
-//        setTextFieldColor(tempTextField);
-//        //status update korte hobe, r slot number update korte hobe
-//        ConnectDatabase connectDatabase = new ConnectDatabase();
-//        connectDatabase.ConnectDB();
-//        Time time = new Time();
-//        
-//        System.out.println(time.getCurrentDate());
-//        System.out.println(time.getCurrentTime());
-//        System.out.println(id);
-//        System.out.println(name);
-//        System.out.println(profession);
-//        System.out.println(vehicleType);
-//        System.out.println(vehicleNumber);
-//        //System
-//        
-//        connectDatabase.storeParkingData(time.getCurrentDate(), time.getCurrentTime(), id, name, profession, vehicleType, vehicleNumber, "Yes", tempTextField.getText());
-//        
-//        JOptionPane.showMessageDialog(null, "Parking confirmed\nThank you");
-//        setDefaultValue();
-//        }
-        
-        //searchBar.setCursor(Cursor.getPredefinedCursor (Cursor.WAIT_CURSOR));
-    }//GEN-LAST:event_confirmButtonActionPerformed
-
-    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        // TODO add your handling code here:
-//        if(tempTextField1 != null){
-//        setTextFieldColor(tempTextField1);
-//        ConnectDatabase connectDatabase = new ConnectDatabase();
-//        connectDatabase.ConnectDB();
-//        connectDatabase.updateParkingData("No", id);
-//        JOptionPane.showMessageDialog(null, "Exit. Thankyou");
-//        setDefaultValue();
-//        
-//        }
-//        else{
-//            String tempSlot = slotNumLabel.getText();
-//            String[] tempSlotAr = tempSlot.split(":", 2);
-//            tempSlot = tempSlotAr[1]; // her split with a space in front
-//            JOptionPane.showMessageDialog(null, "Please select first the" + tempSlot + " slot to exit");
-//        }
-    }//GEN-LAST:event_exitButtonActionPerformed
 
     private void jTextField3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField3MousePressed
         // TODO add your handling code here:
@@ -2007,7 +2032,7 @@ public class MainPage extends javax.swing.JFrame {
         String guestName = guestNameField.getText();
         String guestMobile = guestMobileField.getText();
         String guestVehicleNum = guestVehicleNumField.getText();
-        
+        String guestVehicleType = guestVehicleTypeCombo.getSelectedItem().toString();
         // connecting to database 
         ConnectDatabase db = new ConnectDatabase();
         db.ConnectDB();
@@ -2020,10 +2045,19 @@ public class MainPage extends javax.swing.JFrame {
         
         JTextField guestTempTextField = null;
         // checking slot is empty or not
-        for(int i=0; i<textFieldArForGuests.size(); i++){
-            if(textFieldArForGuests.get(i).getBackground().equals(new Color(0, 128, 0))){
-                guestTempTextField = textFieldArForGuests.get(i);
-                break;
+        if(guestVehicleType.equals("Car")){
+            for(int i=0; i<textFieldArForGuests.size(); i++){
+                if(textFieldArForGuests.get(i).getBackground().equals(new Color(0, 128, 0))){
+                    guestTempTextField = textFieldArForGuests.get(i);
+                    break;
+                }
+            }
+        }else if(guestVehicleType.equals("Motor Bike")){
+            for(int i=0; i<textFieldArForGuestsBike.size(); i++){
+                if(textFieldArForGuestsBike.get(i).getBackground().equals(new Color(0, 128, 0))){
+                    guestTempTextField = textFieldArForGuestsBike.get(i);
+                    break;
+                }
             }
         }
         
@@ -2033,7 +2067,7 @@ public class MainPage extends javax.swing.JFrame {
         Time time = new Time();
         
         // storing the data in database
-        db.storeGuestParkingData(time.getCurrentDate(), time.getCurrentTime(), guestName, guestMobile, guestVehicleNum, "Yes", guestSlotNum);
+        db.storeGuestParkingData(time.getCurrentDate(), time.getCurrentTime(), guestName, guestMobile, guestVehicleNum, "Yes", guestSlotNum, guestVehicleType);
         System.out.println("Guest Successfully enterred");
         
         //color the slot
@@ -2058,6 +2092,7 @@ public class MainPage extends javax.swing.JFrame {
         String guestSlotNum = null;
         String guestMobile = null;
         String guestName = null;
+        String guestVehicleType = null;
         // connecting to databse
         ConnectDatabase db = new ConnectDatabase();
         db.ConnectDB();
@@ -2067,6 +2102,7 @@ public class MainPage extends javax.swing.JFrame {
         guestName = db.getGuestName();
         guestMobile = db.getGuestMobile();
         guestSlotNum = db.getGuestSlotNum();
+        guestVehicleType = db.getGuestVehicleType();
         
         // current time to exit
         Time time = new Time();
@@ -2078,10 +2114,21 @@ public class MainPage extends javax.swing.JFrame {
         //check with the slot
         // to color it green
         JTextField guestTempTextField = null;
-        for(int i=0; i<textFieldArForGuests.size(); i++){
-            if(textFieldArForGuests.get(i).getBackground().equals(Color.red) && textFieldArForGuests.get(i).getText().equals(guestSlotNum)){
-                guestTempTextField = textFieldArForGuests.get(i);
-                break;
+        
+        if(guestVehicleType.equals("Car")){
+            for(int i=0; i<textFieldArForGuests.size(); i++){
+                if(textFieldArForGuests.get(i).getBackground().equals(Color.red) && textFieldArForGuests.get(i).getText().equals(guestSlotNum)){
+                    guestTempTextField = textFieldArForGuests.get(i);
+                    break;
+                }
+            }
+        }
+        if(guestVehicleType.equals("Motor Bike")){
+            for(int i=0; i<textFieldArForGuestsBike.size(); i++){
+                if(textFieldArForGuestsBike.get(i).getBackground().equals(Color.red) && textFieldArForGuestsBike.get(i).getText().equals(guestSlotNum)){
+                    guestTempTextField = textFieldArForGuestsBike.get(i);
+                    break;
+                }
             }
         }
         
@@ -2158,11 +2205,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel basement1Panel;
     private javax.swing.JPanel basement2Panel;
     private javax.swing.JLabel closeButton;
-    private javax.swing.JButton confirmButton;
     private javax.swing.JPanel dashboardPanel;
     private javax.swing.JScrollPane dashboardScroll1;
     private javax.swing.JScrollPane dashboardScroll2;
-    private javax.swing.JButton exitButton;
     private javax.swing.JLabel freeSlotLabel;
     private javax.swing.JButton guestExitButton;
     private javax.swing.JLabel guestLoginButton;
@@ -2173,6 +2218,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton guestSubmit;
     private javax.swing.JTextField guestVehicleNumExitField;
     private javax.swing.JTextField guestVehicleNumField;
+    private javax.swing.JComboBox<String> guestVehicleTypeCombo;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPanel imagePanel;

@@ -38,6 +38,9 @@ public class Home extends javax.swing.JFrame {
         
         /*checking expired id*/
         idGetExpired();
+        
+        //call update sem while open
+        updateSemesterStatus();
     }
     
     
@@ -47,6 +50,15 @@ public class Home extends javax.swing.JFrame {
         //setSize(size.width/2, size.height/2 + 100);
         setLocation(size.width/2 - getWidth()/2, size.height/2 - getHeight()/2);
         
+    }
+    
+    private void updateSemesterStatus(){
+        ConnectDatabase db = new ConnectDatabase();
+        db.ConnectDB();
+        Time time = new Time();
+        String currentDate = time.getCurrentDate();
+        db.updateSemesterCurrentStatus(currentDate);
+        db.updateSemesterPrevStatus(currentDate);
     }
     
     // a function to find and show the IDs, expired validity for AUST PMS in a table form
@@ -125,6 +137,7 @@ public class Home extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         databaseButton = new javax.swing.JButton();
         registerButton = new javax.swing.JButton();
+        semesterButton = new javax.swing.JButton();
         regNewVehicle = new javax.swing.JButton();
         parkingStatusButton = new javax.swing.JButton();
         expandButton = new javax.swing.JButton();
@@ -164,7 +177,18 @@ public class Home extends javax.swing.JFrame {
                 registerButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 120, 40));
+        jPanel1.add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 120, 40));
+
+        semesterButton.setBackground(new java.awt.Color(0, 255, 153));
+        semesterButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        semesterButton.setForeground(new java.awt.Color(255, 255, 255));
+        semesterButton.setText("Semester");
+        semesterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                semesterButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(semesterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 120, 40));
 
         regNewVehicle.setBackground(new java.awt.Color(0, 255, 153));
         regNewVehicle.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -231,8 +255,8 @@ public class Home extends javax.swing.JFrame {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Register reg = new Register();
-        reg.setVisible(true);
+        Transaction tr = new Transaction();
+        tr.setVisible(true);
         expireFrame.dispose();
         
     }//GEN-LAST:event_registerButtonActionPerformed
@@ -295,17 +319,11 @@ public class Home extends javax.swing.JFrame {
                 int extendMonth = 0;
                 int extendYear = 0;
                 if(profession.equals("Student")){
-                    expireIn = 6;
-                    extendMonth = month + expireIn;
+                    connectDatabase.ConnectDB();
+                    String endDate = connectDatabase.retrieveSemesterInfo("current");
                 
-                    if(extendMonth <= 12){
-                        newExpiryDate = String.valueOf(year) + "-" + String.valueOf(extendMonth) + "-" + String.valueOf(date);
-                    }
-                    else{
-                        year = year + 1;
-                        extendMonth = extendMonth % 12;
-                        newExpiryDate = String.valueOf(year) + "-" + String.valueOf(extendMonth) + "-" + String.valueOf(date);
-                    }
+                    newExpiryDate = endDate;
+                    connectDatabase.CloseDB();
                 }
                 else if(profession.equals("Teacher") || profession.equals("Staff")){
                     expireIn = 1;
@@ -321,6 +339,13 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please enter your ID and Vehicle Number correctly");
         }
     }//GEN-LAST:event_expandButtonActionPerformed
+
+    private void semesterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semesterButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Semester sem = new Semester();
+        sem.setVisible(true);
+    }//GEN-LAST:event_semesterButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -369,5 +394,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton parkingStatusButton;
     private javax.swing.JButton regNewVehicle;
     private javax.swing.JButton registerButton;
+    private javax.swing.JButton semesterButton;
     // End of variables declaration//GEN-END:variables
 }

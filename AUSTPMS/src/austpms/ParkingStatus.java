@@ -87,7 +87,7 @@ public class ParkingStatus extends javax.swing.JFrame {
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         itemSelectCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        itemSelectCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Today", "Yesterday", "2 days ago" }));
+        itemSelectCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Today", "Yesterday", "2 days ago", "Guests" }));
         itemSelectCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSelectComboActionPerformed(evt);
@@ -157,7 +157,7 @@ public class ParkingStatus extends javax.swing.JFrame {
         //jTable1.setModel(new DefaultTableModel(null, new Object[]{}));
         if(itemSelectCombo.getSelectedIndex() == 1){ // today
             jTable1.setModel(new DefaultTableModel(null, new Object[]{"Date", "Profession", "Name", "ID", "Mobile",
-            "Vehicle Number", " Parking Status", " Slot Number"}));
+            "Vehicle Number", " Parking Status", " Slot Number", "Entry Time", "Exit Time"}));
             try { 
                 ConnectDatabase connectDatabase = new ConnectDatabase();
                 connectDatabase.ConnectDB();
@@ -174,7 +174,9 @@ public class ParkingStatus extends javax.swing.JFrame {
                     connectDatabase.getExtraResultSet().getString("Mobile"),
                     connectDatabase.getExtraResultSet().getString("VehicleNumber"),
                     connectDatabase.getExtraResultSet().getString("ParkingStatus"),
-                    connectDatabase.getExtraResultSet().getString("SlotNumber")});
+                    connectDatabase.getExtraResultSet().getString("SlotNumber"),
+                    connectDatabase.getExtraResultSet().getString("ParkingTime"),
+                    connectDatabase.getExtraResultSet().getString("ExitTime")});
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ParkingStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,7 +185,7 @@ public class ParkingStatus extends javax.swing.JFrame {
         else if(itemSelectCombo.getSelectedIndex() == 2){ // yesterday
             //JOptionPane.showMessageDialog(null, "under construction");
             jTable1.setModel(new DefaultTableModel(null, new Object[]{"Date", "Profession", "Name", "ID", "Mobile",
-            "Vehicle Number", " Parking Status", " Slot Number"}));
+            "Vehicle Number", " Parking Status", " Slot Number", "Entry Time", "Exit Time"}));
             try { 
                 ConnectDatabase connectDatabase = new ConnectDatabase();
                 connectDatabase.ConnectDB();
@@ -231,7 +233,9 @@ public class ParkingStatus extends javax.swing.JFrame {
                     connectDatabase.getExtraResultSet().getString("Mobile"),
                     connectDatabase.getExtraResultSet().getString("VehicleNumber"),
                     connectDatabase.getExtraResultSet().getString("ParkingStatus"),
-                    connectDatabase.getExtraResultSet().getString("SlotNumber")});
+                    connectDatabase.getExtraResultSet().getString("SlotNumber"),
+                    connectDatabase.getExtraResultSet().getString("ParkingTime"),
+                    connectDatabase.getExtraResultSet().getString("ExitTime")});
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -241,7 +245,7 @@ public class ParkingStatus extends javax.swing.JFrame {
             //JOptionPane.showMessageDialog(null, "under construction");
          
             jTable1.setModel(new DefaultTableModel(null, new Object[]{"Date", "Profession", "Name", "ID", "Mobile",
-            "Vehicle Number", " Parking Status", " Slot Number"}));
+            "Vehicle Number", " Parking Status", " Slot Number", "Entry Time", "Exit Time"}));
             try { 
                 ConnectDatabase connectDatabase = new ConnectDatabase();
                 connectDatabase.ConnectDB();
@@ -289,15 +293,44 @@ public class ParkingStatus extends javax.swing.JFrame {
                     connectDatabase.getExtraResultSet().getString("Mobile"),
                     connectDatabase.getExtraResultSet().getString("VehicleNumber"),
                     connectDatabase.getExtraResultSet().getString("ParkingStatus"),
-                    connectDatabase.getExtraResultSet().getString("SlotNumber")});
+                    connectDatabase.getExtraResultSet().getString("SlotNumber"),
+                    connectDatabase.getExtraResultSet().getString("ParkingTime"),
+                    connectDatabase.getExtraResultSet().getString("ExitTime")});
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        else if(itemSelectCombo.getSelectedIndex() == 4){
+            jTable1.setModel(new DefaultTableModel(null, new Object[]{"Date", "Profession", "Name", "ID", "Mobile",
+            "Vehicle Number", " Parking Status", " Slot Number", "Entry Time", "Exit Time"}));
+            
+            try { 
+                ConnectDatabase connectDatabase = new ConnectDatabase();
+                connectDatabase.ConnectDB();
+                Time time = new Time();
+                
+                connectDatabase.retrieveGuestParkingData();
+                DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+                while(connectDatabase.getExtraResultSet().next()){
+                    model.insertRow(model.getRowCount(), new Object[]{connectDatabase.getExtraResultSet().getString("ParkingDate"),
+                    "Guest",
+                    connectDatabase.getExtraResultSet().getString("Name"),
+                    connectDatabase.getExtraResultSet().getString("ParkingId"),
+                    connectDatabase.getExtraResultSet().getString("Mobile"),
+                    connectDatabase.getExtraResultSet().getString("VehicleNumber"),
+                    connectDatabase.getExtraResultSet().getString("ParkingStatus"),
+                    connectDatabase.getExtraResultSet().getString("SlotNumber"),
+                    connectDatabase.getExtraResultSet().getString("EntryTime"),
+                    connectDatabase.getExtraResultSet().getString("ExitTime")});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ParkingStatus.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         else{
             jTable1.setModel(new DefaultTableModel(null, new Object[]{"Date", "Profession", "Name", "ID", "Mobile",
-            "Vehicle Number", " Parking Status", " Slot Number"}));
+            "Vehicle Number", " Parking Status", " Slot Number", "Entry Time", "Exit Time"}));
         }
     }//GEN-LAST:event_itemSelectComboActionPerformed
 

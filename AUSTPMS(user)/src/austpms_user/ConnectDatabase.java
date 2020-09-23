@@ -21,6 +21,13 @@ import javax.swing.JOptionPane;
  */
 public class ConnectDatabase {
 
+    /**
+     * @return the guestVehicleType
+     */
+    public String getGuestVehicleType() {
+        return guestVehicleType;
+    }
+
      /**
      * @return the slotNumber
      */
@@ -141,6 +148,7 @@ public class ConnectDatabase {
     private String guestName;
     private String guestSlotNum;
     private String guestMobile;
+    private String guestVehicleType;
     
     
     
@@ -249,9 +257,9 @@ public class ConnectDatabase {
         }
     }
     
-    public void updateParkingData(String status, String id){
+    public void updateParkingData(String status, String id, String exitTime){
         try{
-            String query = "update Parking set ParkingStatus = '" + status + "' where ID = '" + id + "'";
+            String query = "update Parking set ParkingStatus = '" + status + "', ExitTime='"+ exitTime + "' where ID = '" + id + "' and ParkingStatus='Yes'";
             PreparedStatement pst = connection.prepareStatement(query);
             
             pst.executeUpdate();
@@ -296,10 +304,10 @@ public class ConnectDatabase {
     }
     
     
-    public void storeGuestParkingData(String parkingDate, String entryTime, String name, String mobile, String vehicleNum, String parkingStatus, String slotNumber){
+    public void storeGuestParkingData(String parkingDate, String entryTime, String name, String mobile, String vehicleNum, String parkingStatus, String slotNumber, String vehicleType){
         try{
-            String query = "insert into GuestParking(ParkingDate, Name, Mobile, VehicleNumber, ParkingStatus, EntryTime, SlotNumber) "
-                    + "values(?,?,?,?,?,?,?)";
+            String query = "insert into GuestParking(ParkingDate, Name, Mobile, VehicleNumber, ParkingStatus, EntryTime, SlotNumber, VehicleType) "
+                    + "values(?,?,?,?,?,?,?,?)";
             PreparedStatement pst = connection.prepareStatement(query);
             
             pst.setString(1, parkingDate);
@@ -309,6 +317,7 @@ public class ConnectDatabase {
             pst.setString(5, parkingStatus);
             pst.setString(6, entryTime);
             pst.setString(7, slotNumber);
+            pst.setString(8, vehicleType);
             
             pst.executeUpdate();
             pst.close();
@@ -336,6 +345,7 @@ public class ConnectDatabase {
                 guestName = resultSet.getString("Name");
                 guestMobile = resultSet.getString("Mobile");
                 guestSlotNum = resultSet.getString("SlotNumber");
+                this.guestVehicleType = resultSet.getString("VehicleType");
             }  
         }catch(Exception e){
             System.out.println(e);

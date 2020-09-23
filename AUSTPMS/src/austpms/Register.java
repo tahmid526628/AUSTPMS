@@ -980,65 +980,109 @@ public class Register extends javax.swing.JFrame {
                 || vehicleColor.equals("") || vehicleSerial.equals("None") || vehicleNumber.equals("") || !isImageSelected){
             warningMsg.setText("Please fill all of the fields and select proper item");
         }
-        else{
-            if(profession == professionCombo.getItemAt(1).toString()){ // Teacher
-                
-                connectDatabase.storePersonData(id, firstName, lastName, mobileNum, profession, dept, picture);
-                connectDatabase.storeVehicleData(vehicleSerial, vehicleNumber, vehicleType, vehicleModel, vehicleColor, regDate, expiryDate, id);
+        else{            
+            int choice = JOptionPane.showConfirmDialog(null, "Are all the informations is correct? Are you sure to continue?");
+            if(choice == 0){ //yes                               
+                DriverInfo driverInfo = new DriverInfo();
+            
+                if(profession.equals("Student")){
+                    /*******************work with schedule****************/
+                    String sunStart = startHour1.getText() + ":" + startMin1.getText();
+                    String sunEnd = endHour1.getText() + ":" + endMin1.getText();
+                    String monStart = startHour2.getText() + ":" + startMin2.getText();
+                    String monEnd = endHour2.getText() + ":" + endMin2.getText();
+                    String tuesStart = startHour3.getText() + ":" + startMin3.getText();
+                    String tuesEnd = endHour3.getText() + ":" + endMin3.getText();
+                    String wedStart = startHour4.getText() + ":" + startMin4.getText();
+                    String wedEnd = endHour4.getText() + ":" + endMin4.getText();
+                    String thursStart = startHour5.getText() + ":" + startMin5.getText();
+                    String thursEnd = endHour5.getText() + ":" + endMin5.getText();
+                    
+                    driverInfo.setSunStart(sunStart);
+                    driverInfo.setSunEnd(sunEnd);
+                    driverInfo.setMonStart(monStart);
+                    driverInfo.setMonEnd(monEnd);
+                    driverInfo.setTuesStart(tuesStart);
+                    driverInfo.setTuesEnd(tuesEnd);
+                    driverInfo.setWedStart(wedStart);
+                    driverInfo.setWedEnd(wedEnd);
+                    driverInfo.setThursStart(thursStart);
+                    driverInfo.setThursEnd(thursEnd);
+                }
+                driverInfo.setFirstName(firstName);
+                driverInfo.setLastName(lastName);
+                driverInfo.setId(id);
+                driverInfo.setMobileNum(mobileNum);
+                driverInfo.setProfession(profession);
+                driverInfo.setDept(dept);
+                driverInfo.setVehicleType(vehicleType);
+                driverInfo.setVehicleModel(vehicleModel);
+                driverInfo.setVehicleColor(vehicleColor);
+                driverInfo.setVehicleSerial(vehicleSerial);
+                driverInfo.setVehicleNumber(vehicleNumber);
+                driverInfo.setRegDate(regDate);
+                driverInfo.setExpiryDate(expiryDate);
+                driverInfo.setPicture(picture);
+
                 warningMsg.setText("");
-                System.out.println("OK");
                 
-                //generating barcode using person's ID
-                BarcodeGenerate barcode = new BarcodeGenerate();
-                barcode.createBarCode128(id);
+                // opening driver info frame
+                this.dispose();
+                driverInfo.setVisible(true);
             }
-            else if(profession == professionCombo.getItemAt(2).toString()){ // Student
-                
-                connectDatabase.storePersonData(id, firstName, lastName, mobileNum, profession, dept, picture);
-                connectDatabase.storeVehicleData(vehicleSerial, vehicleNumber, vehicleType, vehicleModel, vehicleColor, regDate, expiryDate, id);
-                warningMsg.setText("");
-                System.out.println("OK");
-                
-                /*******************work with schedule****************/
-//                String sunStart = startHour1.getText() + ":" + startMin1.getText();
-//                String sunEnd = endHour1.getText() + ":" + endMin1.getText();
-//                String monStart = startHour2.getText() + ":" + startMin2.getText();
-//                String monEnd = endHour2.getText() + ":" + endMin2.getText();
-//                String tuesStart = startHour3.getText() + ":" + startMin3.getText();
-//                String tuesEnd = endHour3.getText() + ":" + endMin3.getText();
-//                String wedStart = startHour4.getText() + ":" + startMin4.getText();
-//                String wedEnd = endHour4.getText() + ":" + endMin4.getText();
-//                String thursStart = startHour5.getText() + ":" + startMin5.getText();
-//                String thursEnd = endHour5.getText() + ":" + endMin5.getText();
-////
-//                connectDatabase.storeSchedule(id, sunStart, sunEnd, monStart, monEnd, tuesStart, tuesEnd, wedStart, wedEnd, thursStart, thursEnd);
-                
-                //generating barcode using person's ID
-                BarcodeGenerate barcode = new BarcodeGenerate();
-                barcode.createBarCode128(id);
-            }
-            else if(profession == professionCombo.getItemAt(3).toString()){ // Staff
-                
-                connectDatabase.storePersonData(id, firstName, lastName, mobileNum, profession, dept, picture);
-                connectDatabase.storeVehicleData(vehicleSerial, vehicleNumber, vehicleType, vehicleModel, vehicleColor, regDate, expiryDate, id);
-                warningMsg.setText("");
-                System.out.println("OK");
-                
-                //generating barcode using person's ID
-                BarcodeGenerate barcode = new BarcodeGenerate();
-                barcode.createBarCode128(id);
-            }
-            else{
-                System.out.println("Not OK");
-            }
-        }
-        
-        
-        //end- 17 March, 2020
-        //connectDatabase.storeData("Abul", "Molla", "Kalatiya", "Dhaka", "Bangladesh");
-        
-        
-        
+            
+            
+//            if(profession == professionCombo.getItemAt(1).toString()){ // Teacher
+//                
+//                connectDatabase.storePersonData(id, firstName, lastName, mobileNum, profession, dept, picture);
+//                connectDatabase.storeVehicleData(vehicleSerial, vehicleNumber, vehicleType, vehicleModel, vehicleColor, regDate, expiryDate, id);
+//                warningMsg.setText("");
+//                System.out.println("OK");
+//                
+//                //generating barcode using person's ID
+//                BarcodeGenerate barcode = new BarcodeGenerate();
+//                barcode.createBarCode128(id);
+//            }
+//            else if(profession == professionCombo.getItemAt(2).toString()){ // Student
+//                
+//                connectDatabase.storePersonData(id, firstName, lastName, mobileNum, profession, dept, picture);
+//                connectDatabase.storeVehicleData(vehicleSerial, vehicleNumber, vehicleType, vehicleModel, vehicleColor, regDate, expiryDate, id);
+//                warningMsg.setText("");
+//                System.out.println("OK");
+//                
+//                /*******************work with schedule****************/
+////                String sunStart = startHour1.getText() + ":" + startMin1.getText();
+////                String sunEnd = endHour1.getText() + ":" + endMin1.getText();
+////                String monStart = startHour2.getText() + ":" + startMin2.getText();
+////                String monEnd = endHour2.getText() + ":" + endMin2.getText();
+////                String tuesStart = startHour3.getText() + ":" + startMin3.getText();
+////                String tuesEnd = endHour3.getText() + ":" + endMin3.getText();
+////                String wedStart = startHour4.getText() + ":" + startMin4.getText();
+////                String wedEnd = endHour4.getText() + ":" + endMin4.getText();
+////                String thursStart = startHour5.getText() + ":" + startMin5.getText();
+////                String thursEnd = endHour5.getText() + ":" + endMin5.getText();
+//////
+////                connectDatabase.storeSchedule(id, sunStart, sunEnd, monStart, monEnd, tuesStart, tuesEnd, wedStart, wedEnd, thursStart, thursEnd);
+//                
+//                //generating barcode using person's ID
+//                BarcodeGenerate barcode = new BarcodeGenerate();
+//                barcode.createBarCode128(id);
+//            }
+//            else if(profession == professionCombo.getItemAt(3).toString()){ // Staff
+//                
+//                connectDatabase.storePersonData(id, firstName, lastName, mobileNum, profession, dept, picture);
+//                connectDatabase.storeVehicleData(vehicleSerial, vehicleNumber, vehicleType, vehicleModel, vehicleColor, regDate, expiryDate, id);
+//                warningMsg.setText("");
+//                System.out.println("OK");
+//                
+//                //generating barcode using person's ID
+//                BarcodeGenerate barcode = new BarcodeGenerate();
+//                barcode.createBarCode128(id);
+//            }
+//            else{
+//                System.out.println("Not OK");
+//            }
+        }        
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
@@ -1298,24 +1342,30 @@ public class Register extends javax.swing.JFrame {
             int extendMonth = 0;
             int extendYear = 0;
             if(professionCombo.getSelectedItem().toString().equals("Student")){
-                expireIn = 6;
-                extendMonth = month + expireIn;
+                connectDatabase.ConnectDB();
+                String endDate = connectDatabase.retrieveSemesterInfo("current");
                 
-                if(extendMonth <= 12){
-                    expiryDateField.setText(String.valueOf(year) + "-" + String.valueOf(extendMonth) + "-" + String.valueOf(date));
-                }
-                else{
-                    year = year + 1;
-                    extendMonth = extendMonth % 12;
-                    if(extendMonth == 2){ // by chance jodi generated tarikh maane day ta february month hoy r 
-                        // day jodi 28/29(leap year) er beshi hoy tahole problem. tai 28 er beshi holei next month er date diye disi
-                        if(date > 28){
-                            extendMonth += 1;
-                            date = 1;
-                        }
-                    }
-                    expiryDateField.setText(String.valueOf(year) + "-" + String.valueOf(extendMonth) + "-" + String.valueOf(date));
-                }
+                expiryDateField.setText(endDate);
+                connectDatabase.CloseDB();
+                
+//                expireIn = 6;
+//                extendMonth = month + expireIn;
+//                
+//                if(extendMonth <= 12){
+//                    expiryDateField.setText(String.valueOf(year) + "-" + String.valueOf(extendMonth) + "-" + String.valueOf(date));
+//                }
+//                else{
+//                    year = year + 1;
+//                    extendMonth = extendMonth % 12;
+//                    if(extendMonth == 2){ // by chance jodi generated tarikh maane day ta february month hoy r 
+//                        // day jodi 28/29(leap year) er beshi hoy tahole problem. tai 28 er beshi holei next month er date diye disi
+//                        if(date > 28){
+//                            extendMonth += 1;
+//                            date = 1;
+//                        }
+//                    }
+//                    expiryDateField.setText(String.valueOf(year) + "-" + String.valueOf(extendMonth) + "-" + String.valueOf(date));
+//                }
             }
             else if(professionCombo.getSelectedIndex() == 1 || professionCombo.getSelectedIndex() == 3){
                 expireIn = 1;
